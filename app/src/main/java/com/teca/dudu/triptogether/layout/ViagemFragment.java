@@ -47,7 +47,6 @@ public class ViagemFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_viagem, container, false);
 
         TextView txt = (TextView)rootView.findViewById(R.id.nome_viagem);
-        txt.setText(CurrentUsuario.id_currentUsuario);
 
         UsuarioDao user = new UsuarioDao(rootView.getContext());
 

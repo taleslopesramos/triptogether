@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 if(validaEntradaLogin(v)){
                     int id_usuario = 1;//usuarioDao.loginUsuario(email, senha);
-                    if(id_usuario != -1){
+                    if(true){
                         Intent intentmain = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intentmain);
                     } else {
