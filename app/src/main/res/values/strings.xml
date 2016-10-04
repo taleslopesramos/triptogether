@@ -18,4 +18,6 @@
     <string name="addPT">adicionar</string>
     <string name="logarPT">LOGAR</string>
     <string name="textRegPT">Não é cadastrado?</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

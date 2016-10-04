@@ -72,7 +72,6 @@ public class DespesasFragment extends Fragment {
             });
 
         }
-        fabAddDespesa.
 
         //ADAPTER SET TO LISTVIEW
 
