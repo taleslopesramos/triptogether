@@ -13,6 +13,7 @@ import com.teca.dudu.triptogether.R;
 
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
+import com.teca.dudu.triptogether.model.CurrentUsuario;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.model.Usuario;
 
@@ -46,12 +47,7 @@ public class ViagemFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_viagem, container, false);
 
         TextView txt = (TextView)rootView.findViewById(R.id.nome_viagem);
-        UsuarioDao itemDespesaDao = new UsuarioDao(rootView.getContext());
-        ArrayList<Usuario> despesas = new ArrayList<Usuario>();
-        despesas = itemDespesaDao.listaUsuariosDeUmaViagem(1);
-        if(true){
-            txt.setText(despesas.get(0).getNome());
-        }
+        txt.setText(CurrentUsuario.id_currentUsuario);
 
         UsuarioDao user = new UsuarioDao(rootView.getContext());
 

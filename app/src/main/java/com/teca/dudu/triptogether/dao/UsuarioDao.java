@@ -76,7 +76,17 @@ public class UsuarioDao {
         return usuarios;
     }
 
+    public int loginUsuario(String email,String senha){
+        Cursor cursor = getDatabase().query(DataBaseHelper.Usuario.TABELA,DataBaseHelper.Usuario.COLUNAS,
+                "email = ? AND senha = ?",new String[]{email,senha},null,null,null);
 
+        if(cursor.moveToNext()){
+            Usuario model = criaUsuario(cursor);
+            return model.get_id();
+        }
+
+        return -1;
+    }
 
     public long salvarUsuario(Usuario usuario){
         ContentValues valores = new ContentValues();

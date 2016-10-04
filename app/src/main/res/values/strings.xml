@@ -14,4 +14,6 @@
     <string name="quemUsou">quem usou</string>
     <string name="DescPT">Descrição</string>
     <string name="addPT">adicionar</string>
+    <string name="logarPT">LOGAR</string>
+    <string name="textRegPT">Não é cadastrado?</string>
 </resources>
