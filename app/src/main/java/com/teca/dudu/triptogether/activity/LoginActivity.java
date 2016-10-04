@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity{
                         Intent intentmain = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intentmain);
                     }
-
                 }
                 else {
                     Toast.makeText(v.getContext(), (String)"PREENCHA OS CAMPOS", Toast.LENGTH_SHORT).show();

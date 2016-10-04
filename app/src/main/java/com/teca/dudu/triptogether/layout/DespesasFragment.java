@@ -70,7 +70,9 @@ public class DespesasFragment extends Fragment {
                     startActivity(intentadddespesas);
                 }
             });
+
         }
+        fabAddDespesa.
 
         //ADAPTER SET TO LISTVIEW
 

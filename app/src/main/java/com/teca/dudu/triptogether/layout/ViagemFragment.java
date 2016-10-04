@@ -53,16 +53,11 @@ public class ViagemFragment extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.ID_file_key),Context.MODE_PRIVATE);
 
 
-
-
         TextView txt = (TextView)rootView.findViewById(R.id.nome_viagem);
+
         txt.setText(""+sharedPref.getInt(getString(R.string.ID_file_key),-1));
 
         UsuarioDao user = new UsuarioDao(rootView.getContext());
-
-
-
-
 
 
         //ADAPTER SET TO LISTVIEW
