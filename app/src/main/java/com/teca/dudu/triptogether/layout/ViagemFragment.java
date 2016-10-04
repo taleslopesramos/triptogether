@@ -1,6 +1,8 @@
 package com.teca.dudu.triptogether.layout;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
 
+import com.teca.dudu.triptogether.activity.LoginActivity;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.model.CurrentUsuario;
@@ -46,8 +49,14 @@ public class ViagemFragment extends Fragment {
                              Bundle saveInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_viagem, container, false);
 
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.ID_file_key),Context.MODE_PRIVATE);
+
+
+
+
         TextView txt = (TextView)rootView.findViewById(R.id.nome_viagem);
-        txt.setText(CurrentUsuario.id_currentUsuario);
+        txt.setText(""+sharedPref.getInt(getString(R.string.ID_file_key),-1));
 
         UsuarioDao user = new UsuarioDao(rootView.getContext());
 

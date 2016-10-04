@@ -1,6 +1,8 @@
 package com.teca.dudu.triptogether.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
@@ -35,46 +37,22 @@ public class RegisterActivity extends AppCompatActivity{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                usuarioDao.salvarUsuario(new Usuario(null, 1, nome.getText().toString(),
+                long id_usuario = usuarioDao.salvarUsuario(new Usuario(null, 1, nome.getText().toString(),
                         nick.getText().toString(), email.getText().toString(),
                         senha.getText().toString()));
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
 
+                SharedPreferences sharedPref = getSharedPreferences(
+                        getString(R.string.ID_file_key), Context.MODE_PRIVATE);
+
+                SharedPreferences.Editor spEditor = sharedPref.edit();
+                spEditor.putInt(getString(R.string.ID_file_key), (int)id_usuario);
+                spEditor.apply();
+
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-
-        /*
-        try {
-            DataBaseHelper db = new DataBaseHelper(this);
-            SQLiteDatabase comn =  db.getWritableDatabase();
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("deu bom");
-            alert.show();
-
-
-
-        } catch (SQLException e){
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("deu ruim");
-            alert.show();
-        }
-
-
-       /* eduardoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UsuarioDao novoUsuario = new UsuarioDao(v.getContext());
-
-                if(novoUsuario.buscarUsuarioPorId(1) == null)
-                    novoUsuario.salvarUsuario(new Usuario(1, 1, "Eduardo", "dudu", "eduiah@gmail.com", "minhasenha"));
-
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-                startActivity(intent);
-
-            }
-        }); */
 
     }
     public void onClickReg(View v ){
