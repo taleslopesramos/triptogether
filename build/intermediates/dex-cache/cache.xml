@@ -25,8 +25,8 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.1"
-        sha1="b98fe09505e4f168c7907a51b99092c990daad74">
-        <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_b90188f202bd802300cdc3b2a104814391dd0928/classes.dex" />
+        sha1="ea830d4f34362931c84f37dbeea11c036cb57482">
+        <dex dex="C:\Users\DUDU\AndroidStudioProjects\TripTogether\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_8b1b5eb8985c67c30c7f54f6ffd5f93ec07fd41a\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.1"
-        sha1="0bbdbabe84200c90958f3ffaad9358b387496881">
+        sha1="2b7d30aaf4cb5a3e07801fbffda5614fa79de0af">
         <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_cec52bc7598099e09ec07d03f4c73d7552fe7f84/classes.dex" />
     </item>
     <item
@@ -79,8 +79,8 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.1"
-        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
-        <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_4b345817d534228ef448735cacded88e6bddc139/classes.dex" />
+        sha1="d6dc0584f49159bbf39c31bd27ecee2d50972220">
+        <dex dex="C:\Users\DUDU\AndroidStudioProjects\TripTogether\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1ee6b713738e22879016b031c83b40111a04e342\classes.dex" />
     </item>
     <item
         is-multidex="true"
