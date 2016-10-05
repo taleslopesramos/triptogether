@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_cria_viagem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.teca.dudu.triptogether.activity.CriaViagemActivity"
+    tools:showIn="@layout/activity_cria_viagem">
+    <AutoCompleteTextView
+        android:id="@+id/local_viagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/prompt_local"
+        android:inputType="textNoSuggestions"
+        android:maxLines="1" />
+
+
+    <ListView
+        android:paddingTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_usuarios_cviagem"
+        android:layout_gravity="left|center_vertical"
+        android:choiceMode="multipleChoiceModal" />
+
+</RelativeLayout>

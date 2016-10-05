@@ -38,6 +38,7 @@ public class AddDespesaActivity extends AppCompatActivity {
     ArrayList<Usuario> usuarios;
     UsuarioDao usuarioDao;
     ArrayList<UsuarioPagante> usuariosPagantes;
+    int id_usuario,id_viagem;
 
     int[] ids_usuarios;
     boolean[] checkUsuarios;
@@ -50,7 +51,10 @@ public class AddDespesaActivity extends AppCompatActivity {
         usuariosPagantes = new ArrayList<UsuarioPagante>();
 
         usuarioDao = new UsuarioDao(this);
-        usuarios = new ArrayList<Usuario>();
+
+
+        //pega id do usuario logado
+
         SharedPreferences sharedPref = this.getSharedPreferences(
                 getString(R.string.ID_file_key), Context.MODE_PRIVATE);
         int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
@@ -62,10 +66,6 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         usuarios  = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
 
-        ids_usuarios = new int[usuarios.size()];
-        for(int i=0;i<usuarios.size();i++){
-            ids_usuarios[i] = usuarios.get(i).get_id();
-        }
 
         descTV = (TextView)findViewById(R.id.desc_text);
         valorTV = (TextView)findViewById(R.id.valor_text);
@@ -74,8 +74,8 @@ public class AddDespesaActivity extends AppCompatActivity {
         quemUsouBtn = (Button) findViewById(R.id.quemusou_btn);
 
         listViewQuemUsou = (ListView) findViewById(R.id.listview_quemusou);
-       // if(!visible)//nao mostra list view
-            //listViewQuemUsou.setVisibility(View.INVISIBLE);
+        // if(!visible)//nao mostra list view
+        //listViewQuemUsou.setVisibility(View.INVISIBLE);
 
 
         ArrayAdapter<String> adapterCategorias = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
@@ -217,8 +217,8 @@ public class AddDespesaActivity extends AppCompatActivity {
     }
 }
 class UsuarioPagante{
-    String valorPago;
-    int id_usuario;
+    private String valorPago;
+    private int id_usuario;
 
     public UsuarioPagante(int id_usuario, String valorPago) {
         this.id_usuario = id_usuario;
