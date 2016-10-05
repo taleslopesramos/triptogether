@@ -53,20 +53,18 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         usuarioDao = new UsuarioDao(this);
         //pega id do usuario logado
-        SharedPreferences sharedPref = getSharedPreferences(
+
+        SharedPreferences sharedPref = this.getSharedPreferences(
                 getString(R.string.ID_file_key), Context.MODE_PRIVATE);
-        id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+        int id_viagem = -1;
 
         if(id_usuario != -1){//pega a idviagem atual do usuario logado
             id_viagem = usuarioDao.buscarIdViagem(id_usuario);
         }
 
-        usuarios = new ArrayList<Usuario>();
         usuarios  = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
-        ids_usuarios = new int[usuarios.size()];
-        for(int i=0;i<usuarios.size();i++){
-            ids_usuarios[i] = usuarios.get(i).get_id();
-        }
+
 
         descTV = (TextView)findViewById(R.id.desc_text);
         valorTV = (TextView)findViewById(R.id.valor_text);
@@ -92,10 +90,11 @@ public class AddDespesaActivity extends AppCompatActivity {
                 //cria o item da despesa em si com o valor e seus atributos e lança no bd pelo ItemDespesaDao
                 novaDespesa = new ItemDespesaDao(v.getContext());
                 Float valor = new Float(valorTV.getText().toString());
+
                 if(descTV.getText() != null && valorTV != null) {//checa se os campos nao estao em branco
                     //add item despesa a tabela
                     ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), categoriasSpinner.getSelectedItem().toString()
-                            , null, valor, id_viagem);
+                            , null, valor, 1);
 
                     int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);
                     //cria a relacao de usuario com despesa na tabela DespesaDao
@@ -187,6 +186,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                         for(int i=0; i<usuarios.size();i++){
                             if(checkUsuarios[i]) {
                                 usuariosPagantes.add( new UsuarioPagante(ids_usuarios[i]));
+                                visible = true;
                             }
                         }
                         if(visible)
