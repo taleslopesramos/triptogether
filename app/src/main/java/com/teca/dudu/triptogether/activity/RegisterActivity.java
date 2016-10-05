@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long id_usuario = usuarioDao.salvarUsuario(new Usuario(null, 1, nome.getText().toString(),
+                long id_usuario = usuarioDao.salvarUsuario(new Usuario(null, 2, nome.getText().toString(),
                         nick.getText().toString(), email.getText().toString(),
                         senha.getText().toString()));
 

@@ -76,7 +76,7 @@ public class ViagemDao {
                 new String[]{Integer.toString(id)}) > 0;
     }
 
-    public Viagem buscarUsuarioPorId(int id){
+    public Viagem buscarViagemPorId(int id){
         Cursor cursor = getDatabase().query(DataBaseHelper.Viagem.TABELA,DataBaseHelper.Viagem.COLUNAS, "_id = ?",
                 new String[]{Integer.toString(id)},null,null,null);
 

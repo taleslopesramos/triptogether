@@ -63,14 +63,15 @@ public class DespesaDao {
     public float saldoDoUsuario(int id_usuario,int id_viagem){
         float total = 0;
         Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,DataBaseHelper.Despesa.COLUNAS,
-                "? = ? and ? = ?",new String[]{DataBaseHelper.Despesa.ID_USUARIO,Integer.toString(id_usuario),
-                        DataBaseHelper.Despesa.ID_VIAGEM,Integer.toString(id_viagem)},null,null,null);
+                "ID_Usuario = ? and ID_Viagem = ?",new String[]{Integer.toString(id_usuario),
+                        Integer.toString(id_viagem)},null,null,null);
 
         while (cursor.moveToNext()){
             Despesa model = criaDespesa(cursor);
             total -= model.getValordevido();
             total += model.getValorpago();
         }
+
         cursor.close();
         return total;
     }
