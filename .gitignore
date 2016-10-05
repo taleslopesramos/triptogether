@@ -28,9 +28,11 @@ Thumbs.db
 # Android Studio
 *.iml
 .idea
-.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.idea/workspace.xml 
 .gradle
 build/
+build/intermediates
+build/generated/dex-cache
 
 #NDK
 obj/
