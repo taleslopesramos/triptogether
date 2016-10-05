@@ -1,7 +1,9 @@
 package com.teca.dudu.triptogether.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,7 +51,17 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         usuarioDao = new UsuarioDao(this);
         usuarios = new ArrayList<Usuario>();
-        usuarios  = usuarioDao.listaUsuariosDeUmaViagem(1);
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                getString(R.string.ID_file_key), Context.MODE_PRIVATE);
+        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+        int id_viagem = -1;
+
+        if(id_usuario != -1){
+            id_viagem = usuarioDao.buscarIdViagem(id_usuario);
+        }
+
+        usuarios  = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
+
         ids_usuarios = new int[usuarios.size()];
         for(int i=0;i<usuarios.size();i++){
             ids_usuarios[i] = usuarios.get(i).get_id();
@@ -79,11 +91,12 @@ public class AddDespesaActivity extends AppCompatActivity {
                 //cria o item da despesa em si com o valor e seus atributos e lança no bd pelo ItemDespesaDao
                 novaDespesa = new ItemDespesaDao(v.getContext());
                 Float valor = new Float(valorTV.getText().toString());
+
                 if(descTV.getText() != null && valorTV != null) {//checa se os campos nao estao em branco
                     //add item despesa a tabela
                     ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), categoriasSpinner.getSelectedItem().toString()
                             , null, valor, 1);
-                    /*
+                    novaDespesa.salvarItemDespesa(despesa);
                     int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);
                     //cria a relacao de usuario com despesa na tabela DespesaDao
                     setValorPagoQuemUsou();
@@ -91,7 +104,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                     if(camposValidosValorPago){
                         criaDespesaDao(id_itemdespesa, v);
                     }
-                    */
+
 
                 } else{
                     Toast.makeText(v.getContext(), "Preencha os campos", Toast.LENGTH_SHORT).show();
@@ -174,6 +187,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                         for(int i=0; i<usuarios.size();i++){
                             if(checkUsuarios[i]) {
                                 usuariosPagantes.add( new UsuarioPagante(ids_usuarios[i]));
+                                visible = true;
                             }
                         }
                         if(visible)
