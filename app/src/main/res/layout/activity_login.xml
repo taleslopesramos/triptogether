@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activity.LoginActivity"
-    android:onClick="onClickEduardo">
+    tools:context=".activity.LoginActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -31,8 +30,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
                 android:inputType="textNoSuggestions"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:maxLines="1" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -47,8 +45,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
                 android:inputType="textNoSuggestions"
-                android:maxLines="1"
-                android:singleLine="true" />
+                android:maxLines="1"/>
 
         </android.support.design.widget.TextInputLayout>
 

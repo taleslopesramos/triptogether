@@ -7,6 +7,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_local">Local</string>
 
     <string name="ID_file_key">com.teca.triptogether.idlogin</string>
     <string name="action_sign_in">Sign in</string>
@@ -20,4 +21,5 @@
     <string name="textRegPT">Não é cadastrado?</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_cria_viagem">CriaViagemActivity</string>
 </resources>
