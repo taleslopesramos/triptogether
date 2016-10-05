@@ -47,6 +47,7 @@ public class UsuariosFragment extends Fragment {
                 getString(R.string.ID_file_key), Context.MODE_PRIVATE);
         //ADAPTER SET TO LISTVIEW
         usuarioDao = new UsuarioDao(rootView.getContext());
+
         int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
         int id_viagem = -1;
 

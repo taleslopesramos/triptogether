@@ -29,7 +29,6 @@ Thumbs.db
 *.iml
 .idea
 .idea/workspace.xml 
-.gradle
 build/
 build/intermediates
 build/generated/dex-cache

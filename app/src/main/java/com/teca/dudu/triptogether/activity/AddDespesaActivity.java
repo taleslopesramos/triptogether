@@ -43,6 +43,7 @@ public class AddDespesaActivity extends AppCompatActivity {
     int[] ids_usuarios;
     boolean[] checkUsuarios;
     boolean visible = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +52,10 @@ public class AddDespesaActivity extends AppCompatActivity {
         usuariosPagantes = new ArrayList<UsuarioPagante>();
 
         usuarioDao = new UsuarioDao(this);
-
-
         //pega id do usuario logado
         SharedPreferences sharedPref = getSharedPreferences(
                 getString(R.string.ID_file_key), Context.MODE_PRIVATE);
         id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
-
 
         if(id_usuario != -1){//pega a idviagem atual do usuario logado
             id_viagem = usuarioDao.buscarIdViagem(id_usuario);
@@ -97,8 +95,8 @@ public class AddDespesaActivity extends AppCompatActivity {
                 if(descTV.getText() != null && valorTV != null) {//checa se os campos nao estao em branco
                     //add item despesa a tabela
                     ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), categoriasSpinner.getSelectedItem().toString()
-                            , null, valor, 1);
-                    /*
+                            , null, valor, id_viagem);
+
                     int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);
                     //cria a relacao de usuario com despesa na tabela DespesaDao
                     setValorPagoQuemUsou();
@@ -106,14 +104,14 @@ public class AddDespesaActivity extends AppCompatActivity {
                     if(camposValidosValorPago){
                         criaDespesaDao(id_itemdespesa, v);
                     }
-                    */
+
 
                 } else{
                     Toast.makeText(v.getContext(), "Preencha os campos", Toast.LENGTH_SHORT).show();
                 }
-
-                Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
-                startActivity(intentmain);
+                finish();
+                //Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
+                //startActivity(intentmain);
             }
 
 

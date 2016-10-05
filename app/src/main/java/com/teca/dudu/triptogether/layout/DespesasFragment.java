@@ -66,8 +66,8 @@ public class DespesasFragment extends Fragment {
         int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
         int id_viagem = -1;
         //pega o ID da viagem do usuario logado
+        usuarioDao = new UsuarioDao(rootView.getContext());
         if(id_usuario != -1){
-            usuarioDao = new UsuarioDao(rootView.getContext());
             id_viagem = usuarioDao.buscarIdViagem(id_usuario);
         }
         //lista os itens despesas da viagem do usuario logado

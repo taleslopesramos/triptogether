@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity{
                     spEditor.putInt(getString(R.string.ID_file_key), id_usuario);
                     spEditor.apply();
                     if( sharedPref.getInt(getString(R.string.ID_file_key),-1) != -1){//se tiver ocorrido tudo certo nos passos anteriores vai pra main activity
-
                         Intent intentmain = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intentmain);
                     }

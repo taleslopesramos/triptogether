@@ -49,6 +49,15 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             "\"ID_Viagem\" INTEGER," +
             "PRIMARY KEY (\"ID_ItemDespesa\", \"ID_Usuario\", \"ID_Viagem\") " +
             ");";
+    private static final String sqlTabelaUsuarioViagem = "CREATE TABLE ViagemUsuario (" +
+            "      ID_Usuario INTEGER NOT NULL," +
+            "      ID_Viagem INTEGER NOT NULL," +
+            "      datafim datetime, " +
+            "      estaAtiva INTEGER,"+
+            "      PRIMARY KEY (ID_Usuario,ID_Viagem)," +
+            "      CONSTRAINT ID_Viagem FOREIGN KEY (ID_Usuario) REFERENCES Usuario (_id)" +
+            "      CONSTRAINT ID_Viagem FOREIGN KEY (ID_Viagem)  REFERENCES Viagem  (_id)" +
+            ");";
 
     public DataBaseHelper(Context context) {
         super(context, BANCO_DADOS, null, VERSAO);
@@ -61,6 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         db.execSQL(sqlTabelaUsuario);
         db.execSQL(sqlTabelaItemDespesa);
         db.execSQL(sqlTabelaDespesa);
+        db.execSQL(sqlTabelaUsuarioViagem);
     }
 
     @Override
@@ -101,6 +111,15 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         public static final String SENHA = "senha";
         public static final String IMG_PERFIL = "ImgPerfil";
         public static final String[] COLUNAS = {_ID,ID_VIAGEM,NOME,NICKNAME,EMAIL,SENHA,IMG_PERFIL};
+    }
+
+    public static class UsuarioViagem{
+        public static final String TABELA = "UsuarioViagem";
+        public static final String ID_USUARIO = "ID_Usuario";
+        public static final String ID_VIAGEM = "ID_Viagem";
+        public static final String DATAFIM = "datafim";
+        public static final String ESTA_ATIVA = "estaAtiva";
+        public static final String[] COLUNAS = {ID_USUARIO,ID_VIAGEM,DATAFIM,ESTA_ATIVA};
     }
 
     public static class ItemDespesa{
