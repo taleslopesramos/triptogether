@@ -1,5 +1,7 @@
 package com.teca.dudu.triptogether.layout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -41,10 +43,19 @@ public class UsuariosFragment extends Fragment {
                              Bundle saveInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_usuarios, container, false);
 
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                getString(R.string.ID_file_key), Context.MODE_PRIVATE);
         //ADAPTER SET TO LISTVIEW
         usuarioDao = new UsuarioDao(rootView.getContext());
+        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+        int id_viagem = -1;
+
+        if(id_usuario != -1){
+            id_viagem = usuarioDao.buscarIdViagem(id_usuario);
+        }
+
         usuarios = new ArrayList<Usuario>();
-        usuarios = usuarioDao.listaUsuariosDeUmaViagem(1);
+        usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
         ListView listUsuarios = (ListView) rootView.findViewById(R.id.list_usuarios);
         if(true) {
             UsuariosAdapter adapter = new UsuariosAdapter(rootView.getContext(), usuarios);

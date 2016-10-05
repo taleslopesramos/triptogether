@@ -49,16 +49,17 @@ public class LoginActivity extends AppCompatActivity{
         LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = emailEdt.getText().toString();
+                email = emailEdt.getText().toString(); //pega os campos de email e senha
                 senha = senhaEdt.getText().toString();
-                if(validaEntradaLogin(v)){
-                    int id_usuario = usuarioDao.loginUsuario(email, senha);
+                if(validaEntradaLogin(v)){ //valida
+                    int id_usuario = usuarioDao.loginUsuario(email, senha); //procura no bd
+                    //salva o id do usuario logado
                     SharedPreferences sharedPref = getSharedPreferences(
                             getString(R.string.ID_file_key),Context.MODE_PRIVATE);
                     SharedPreferences.Editor spEditor = sharedPref.edit();
                     spEditor.putInt(getString(R.string.ID_file_key), id_usuario);
                     spEditor.apply();
-                    if( sharedPref.getInt(getString(R.string.ID_file_key),-1) != -1){
+                    if( sharedPref.getInt(getString(R.string.ID_file_key),-1) != -1){//se tiver ocorrido tudo certo nos passos anteriores vai pra main activity
 
                         Intent intentmain = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intentmain);

@@ -1,6 +1,8 @@
 package com.teca.dudu.triptogether.layout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +18,7 @@ import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.adapter.DespesasAdapter;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
+import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.model.Despesa;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 
@@ -27,6 +30,7 @@ public class DespesasFragment extends Fragment {
     FloatingActionButton fabAddDespesa;
     ListView listDespesas;
     ItemDespesaDao itemDespesaDao;
+    UsuarioDao usuarioDao;
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
@@ -55,12 +59,24 @@ public class DespesasFragment extends Fragment {
 
         itemDespesaDao = new ItemDespesaDao(rootView.getContext());
         despesas = new ArrayList<ItemDespesa>();
-        despesas = itemDespesaDao.listaItensDeUmaViagem(1);
+
+        //pega o ID do usuario logado
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                getString(R.string.ID_file_key), Context.MODE_PRIVATE);
+        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+        int id_viagem = -1;
+        //pega o ID da viagem do usuario logado
+        if(id_usuario != -1){
+            usuarioDao = new UsuarioDao(rootView.getContext());
+            id_viagem = usuarioDao.buscarIdViagem(id_usuario);
+        }
+        //lista os itens despesas da viagem do usuario logado
+        despesas = itemDespesaDao.listaItensDeUmaViagem(id_viagem);
         if(despesas.size() >= 1){
             DespesasAdapter adapter= new DespesasAdapter(rootView.getContext(), despesas);
             listDespesas.setAdapter(adapter);
         }
-
+        //botao pra adicionar despesa
         fabAddDespesa = (FloatingActionButton) rootView.findViewById(R.id.fabadd_despesa);
         if(fabAddDespesa != null){
             fabAddDespesa.setOnClickListener(new View.OnClickListener() {

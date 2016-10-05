@@ -30,6 +30,7 @@ public class ViagemFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
+    private int id_usuario = 0;
     public ViagemFragment(){}
     public  ViagemFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -49,13 +50,13 @@ public class ViagemFragment extends Fragment {
                              Bundle saveInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_viagem, container, false);
 
-
+        //pega o ID do usuario logado
         SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.ID_file_key),Context.MODE_PRIVATE);
-
+        id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
 
         TextView txt = (TextView)rootView.findViewById(R.id.nome_viagem);
 
-        txt.setText(""+sharedPref.getInt(getString(R.string.ID_file_key),-1));
+        txt.setText(""+id_usuario);
 
         UsuarioDao user = new UsuarioDao(rootView.getContext());
 

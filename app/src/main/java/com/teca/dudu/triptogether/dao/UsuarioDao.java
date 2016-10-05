@@ -122,4 +122,9 @@ public class UsuarioDao {
 
         return null;
     }
+
+    public  int buscarIdViagem(int id_usuario){
+        Usuario user = buscarUsuarioPorId(id_usuario);
+        return user.getIdViagem();
+    }
 }

@@ -55,7 +55,7 @@ public class AddDespesaActivity extends AppCompatActivity {
         quemUsouBtn = (Button) findViewById(R.id.quemusou_btn);
 
         listViewQuemUsou = (ListView) findViewById(R.id.listview_quemusou);
-       
+
        // if(!visible)//nao mostra list view
             //listViewQuemUsou.setVisibility(View.INVISIBLE);
 
