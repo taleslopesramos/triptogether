@@ -1,6 +1,8 @@
 package com.teca.dudu.triptogether.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
  */
 
 public class QuemUsouAdapter extends ArrayAdapter<Usuario>{
+
     public QuemUsouAdapter(Context context, ArrayList<Usuario> usuarios){
         super(context, 0, usuarios);
     }
@@ -44,6 +47,7 @@ public class QuemUsouAdapter extends ArrayAdapter<Usuario>{
         imgUsuario.setImageResource(R.drawable.ic_menu_gallery);
 
         EditText editText = (EditText) listViewItem.findViewById(R.id.itemquemusou_edittxt);
+
         editText.setText("0");
         return listViewItem;
 
