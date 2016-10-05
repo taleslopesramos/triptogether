@@ -9,66 +9,85 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.teca.dudu.triptogether.activity.AddDespesaActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/desc_text"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/DescPT" />
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Spinner
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/categorias_spinner"
-                android:layout_weight="0.45" />
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/valor_text"
-                android:layout_weight="0.45"
+                android:id="@+id/desc_text"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/DescPT" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/categorias_spinner"
+                    android:layout_weight="0.45" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/valor_text"
+                    android:layout_weight="0.45"
+                    android:layout_marginTop="20dp"
+                    android:text="$$$" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:text="$$$" />
-        </LinearLayout>
+                android:layout_weight="0.45">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/quemPagou"
+                    android:id="@+id/quempagou_btn"
+                    android:layout_marginLeft="60dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/quemUsou"
+                    android:id="@+id/quemusou_btn"
+                    android:layout_marginLeft="50dp" />
+
+            </LinearLayout>
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="240dp"
+                android:id="@+id/listview_quemusou"/>
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/quemPagou"
-                android:id="@+id/button2"
-                android:layout_marginLeft="60dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/quemUsou"
-                android:id="@+id/button"
-                android:layout_marginLeft="50dp" />
+                android:text="@string/addPT"
+                android:id="@+id/add_despesa_btn"
+                android:layout_gravity="center_horizontal"
+                 />
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/addPT"
-            android:id="@+id/add_despesa_btn"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp" />
-    </LinearLayout>
 </RelativeLayout>
