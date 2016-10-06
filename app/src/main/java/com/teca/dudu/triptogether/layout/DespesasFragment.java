@@ -72,6 +72,7 @@ public class DespesasFragment extends Fragment {
         }
         //lista os itens despesas da viagem do usuario logado
         despesas = itemDespesaDao.listaItensDeUmaViagem(id_viagem);
+
         if(despesas.size() >= 1){
             DespesasAdapter adapter= new DespesasAdapter(rootView.getContext(), despesas);
             listDespesas.setAdapter(adapter);

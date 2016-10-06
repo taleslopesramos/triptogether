@@ -139,10 +139,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         public static final String TABELA = "Despesa";
         public static final String VALOR_DEVIDO = "ValorDevido";
         public static final String VALOR_PAGO = "ValorPago";
-        public static final String ID_DESPESA = "ID_Despesa";
+        public static final String ID_ITEMDESPESA = "ID_ItemDespesa";
         public static final String ID_USUARIO = "ID_Usuario";
         public static final String ID_VIAGEM = "ID_Viagem";
 
-        public static final String[] COLUNAS = {VALOR_DEVIDO,VALOR_PAGO,ID_DESPESA,ID_USUARIO,ID_VIAGEM};
+        public static final String[] COLUNAS = {VALOR_DEVIDO,VALOR_PAGO,ID_ITEMDESPESA,ID_USUARIO,ID_VIAGEM};
     }
 }

@@ -46,7 +46,7 @@ public class DividasSolucao {
         }
     }
 
-    public String[] getResultado(){
+    public ArrayList<String> getResultado(){
         setDevedoresEPagantes();
 
         int i = 0,indexReajuste = -1;
@@ -95,7 +95,12 @@ public class DividasSolucao {
                     ++i;
                 }
             }
+
         }
-        return sSugestoes;//retorna as strings de sugestão
+        ArrayList<String> sugestoes = new ArrayList<String>();
+        for(int j = 0; j < sSugestoes.length;j++){
+            sugestoes.add(sSugestoes[j]);
+        }
+        return sugestoes;//retorna as strings de sugestão
     }
 }

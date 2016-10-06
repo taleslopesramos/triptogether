@@ -6,18 +6,18 @@ package com.teca.dudu.triptogether.model;
 public class Despesa {
     private Float valordevido;
     private Float valorpago;
-    private Integer iddespesa;
-    private Integer idusuario;
-    private Integer idviagem;
+    private Integer id_itemdespesa;
+    private Integer id_usuario;
+    private Integer id_viagem;
 
     public Despesa(){};
 
-    public Despesa(Float valordevido, Float valorpago, Integer iddespesa, Integer idusuario, Integer idviagem) {
+    public Despesa(Float valordevido, Float valorpago, Integer id_itemdespesa, Integer idusuario, Integer idviagem) {
         this.valordevido = valordevido;
         this.valorpago = valorpago;
-        this.iddespesa = iddespesa;
-        this.idusuario = idusuario;
-        this.idviagem = idviagem;
+        this.id_itemdespesa = id_itemdespesa;
+        this.id_usuario = idusuario;
+        this.id_viagem = idviagem;
     }
 
     public Float getValordevido() {
@@ -36,28 +36,28 @@ public class Despesa {
         this.valorpago = valorpago;
     }
 
-    public Integer getIddespesa() {
-        return iddespesa;
+    public Integer getid_itemdespesa() {
+        return id_itemdespesa;
     }
 
-    public void setIddespesa(Integer iddespesa) {
-        this.iddespesa = iddespesa;
+    public void setid_itemdespesa(Integer id_itemdespesa) {
+        this.id_itemdespesa = id_itemdespesa;
     }
 
     public Integer getIdusuario() {
-        return idusuario;
+        return id_usuario;
     }
 
     public void setIdusuario(Integer idusuario) {
-        this.idusuario = idusuario;
+        this.id_usuario = idusuario;
     }
 
     public Integer getIdviagem() {
-        return idviagem;
+        return id_viagem;
     }
 
     public void setIdviagem(Integer idviagem) {
-        this.idviagem = idviagem;
+        this.id_viagem = idviagem;
 
     }
 }

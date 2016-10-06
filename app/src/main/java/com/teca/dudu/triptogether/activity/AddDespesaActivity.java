@@ -52,12 +52,12 @@ public class AddDespesaActivity extends AppCompatActivity {
         usuariosPagantes = new ArrayList<UsuarioPagante>();
 
         usuarioDao = new UsuarioDao(this);
+
         //pega id do usuario logado
 
         SharedPreferences sharedPref = this.getSharedPreferences(
                 getString(R.string.ID_file_key), Context.MODE_PRIVATE);
-        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
-        int id_viagem = -1;
+        id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
 
         if(id_usuario != -1){//pega a idviagem atual do usuario logado
             id_viagem = usuarioDao.buscarIdViagem(id_usuario);
@@ -65,6 +65,10 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         usuarios  = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
 
+        ids_usuarios = new int[usuarios.size()];
+        for(int i=0;i<usuarios.size();i++){
+            ids_usuarios[i] = usuarios.get(i).get_id();
+        }
 
         descTV = (TextView)findViewById(R.id.desc_text);
         valorTV = (TextView)findViewById(R.id.valor_text);
@@ -94,7 +98,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                 if(descTV.getText() != null && valorTV != null) {//checa se os campos nao estao em branco
                     //add item despesa a tabela
                     ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), categoriasSpinner.getSelectedItem().toString()
-                            , null, valor, 1);
+                            , null, valor, id_viagem);
 
                     int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);
                     //cria a relacao de usuario com despesa na tabela DespesaDao
@@ -108,9 +112,9 @@ public class AddDespesaActivity extends AppCompatActivity {
                 } else{
                     Toast.makeText(v.getContext(), "Preencha os campos", Toast.LENGTH_SHORT).show();
                 }
-                finish();
-                //Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
-                //startActivity(intentmain);
+                //finish();
+                Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
+                startActivity(intentmain);
             }
 
 
@@ -148,7 +152,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                     Despesa despesa = new Despesa(valorTotal/usuariosPagantes.size(),
                             valorUsuario, id_itemdespesa,
                             usuariosPagantes.get(i).getId_usuario(),
-                            1);
+                            id_viagem);
                     DespesaDao despesaDao = new DespesaDao(v.getContext());
                     despesaDao.salvarDespesa(despesa);
                 }

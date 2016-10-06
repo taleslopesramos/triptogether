@@ -39,7 +39,7 @@ public class DespesaDao {
         Despesa model = new Despesa(
                 cursor.getFloat(cursor.getColumnIndex(DataBaseHelper.Despesa.VALOR_DEVIDO)),
                 cursor.getFloat(cursor.getColumnIndex(DataBaseHelper.Despesa.VALOR_PAGO)),
-                cursor.getInt(cursor.getColumnIndex(DataBaseHelper.Despesa.ID_DESPESA)),
+                cursor.getInt(cursor.getColumnIndex(DataBaseHelper.Despesa.ID_ITEMDESPESA)),
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.Despesa.ID_USUARIO)),
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.Despesa.ID_VIAGEM))
         );
@@ -79,7 +79,7 @@ public class DespesaDao {
     public ArrayList<Despesa> listaDespesasDeUmItem(int id_item,int id_viagem){
         Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,
                 DataBaseHelper.Despesa.COLUNAS,"? = ? AND ? = ?",
-                new String[]{DataBaseHelper.Despesa.ID_DESPESA,Integer.toString(id_item),
+                new String[]{DataBaseHelper.Despesa.ID_ITEMDESPESA,Integer.toString(id_item),
                              DataBaseHelper.Despesa.ID_VIAGEM,Integer.toString(id_viagem)},null,null,null);
         ArrayList<Despesa> despesas = new ArrayList<Despesa>();
 
@@ -93,14 +93,17 @@ public class DespesaDao {
 
     public long salvarDespesa(Despesa despesa){
         ContentValues valores = new ContentValues();
+        valores.put(DataBaseHelper.Despesa.ID_ITEMDESPESA,despesa.getid_itemdespesa());
+        valores.put(DataBaseHelper.Despesa.ID_USUARIO,despesa.getIdusuario());
+        valores.put(DataBaseHelper.Despesa.ID_VIAGEM,despesa.getIdviagem());
         valores.put(DataBaseHelper.Despesa.VALOR_DEVIDO,despesa.getValordevido());
         valores.put(DataBaseHelper.Despesa.VALOR_PAGO,despesa.getValorpago());
 
-        if(despesa.getIddespesa() != null && despesa.getIdusuario() != null & despesa.getIdviagem() != null){
+        /*if(despesa.getIddespesa() != null && despesa.getIdusuario() != null && despesa.getIdviagem() != null){
             return getDatabase().update(DataBaseHelper.Despesa.TABELA,valores, "_id = ?",
                     new String[]{despesa.getIdusuario().toString(),despesa.getIdviagem().toString(),
                             despesa.getIddespesa().toString()});
-        }
+        }*/
         return getDatabase().insert(DataBaseHelper.Despesa.TABELA,null,valores);
     }
 
