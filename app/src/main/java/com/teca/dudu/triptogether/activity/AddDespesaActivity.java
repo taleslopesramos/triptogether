@@ -54,12 +54,13 @@ public class AddDespesaActivity extends AppCompatActivity {
         usuariosPagantes = new ArrayList<UsuarioPagante>();
 
         usuarioDao = new UsuarioDao(this);
+
         //pega id do usuario logado
 
         SharedPreferences sharedPref = this.getSharedPreferences(
                 getString(R.string.ID_file_key), Context.MODE_PRIVATE);
         id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
-        id_viagem = -1;
+
 
         if(id_usuario != -1){//pega a idviagem atual do usuario logado
             usuarioViagemDao = new UsuarioViagemDao(this);

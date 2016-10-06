@@ -80,7 +80,7 @@ public class DespesaDao {
         Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,
                 DataBaseHelper.Despesa.COLUNAS,"? = ? AND ? = ?",
                 new String[]{DataBaseHelper.Despesa.ID_ITEMDESPESA,Integer.toString(id_item),
-                        DataBaseHelper.Despesa.ID_VIAGEM,Integer.toString(id_viagem)},null,null,null);
+                             DataBaseHelper.Despesa.ID_VIAGEM,Integer.toString(id_viagem)},null,null,null);
         ArrayList<Despesa> despesas = new ArrayList<Despesa>();
 
         while (cursor.moveToNext()){

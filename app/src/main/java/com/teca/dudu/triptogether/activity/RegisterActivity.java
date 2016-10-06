@@ -14,18 +14,26 @@ import android.widget.EditText;
 
 import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
+import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
+import com.teca.dudu.triptogether.dao.ViagemDao;
 import com.teca.dudu.triptogether.model.Usuario;
+import com.teca.dudu.triptogether.model.UsuarioViagem;
+import com.teca.dudu.triptogether.model.Viagem;
 
 
 public class RegisterActivity extends AppCompatActivity{
     private UsuarioDao usuarioDao;
+    private UsuarioViagemDao usuarioViagemDao;
+    private ViagemDao viagemDao;
     EditText nome,nick,email,senha;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         usuarioDao = new UsuarioDao(this);
-
+        usuarioViagemDao = new UsuarioViagemDao(this);
+        viagemDao = new ViagemDao(this);
         nome = (EditText) findViewById(R.id.nome);
         nick = (EditText) findViewById(R.id.nick);
         email = (EditText) findViewById(R.id.email);
@@ -37,10 +45,11 @@ public class RegisterActivity extends AppCompatActivity{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long id_usuario = usuarioDao.salvarUsuario(new Usuario(null, 2, nome.getText().toString(),
+                long id_usuario = usuarioDao.salvarUsuario(new Usuario(null, nome.getText().toString(),
                         nick.getText().toString(), email.getText().toString(),
                         senha.getText().toString()));
-
+                usuarioViagemDao.salvarUsuarioViagem(new UsuarioViagem((int)id_usuario,2,true));
+                viagemDao.salvarViagem(new Viagem(2,"Las Vegas"));
                 SharedPreferences sharedPref = getSharedPreferences(
                         getString(R.string.ID_file_key), Context.MODE_PRIVATE);
 

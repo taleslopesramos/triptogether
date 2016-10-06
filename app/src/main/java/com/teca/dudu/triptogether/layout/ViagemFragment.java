@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
@@ -16,9 +18,11 @@ import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.activity.LoginActivity;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
+import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.CurrentUsuario;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.model.Usuario;
+import com.teca.dudu.triptogether.util.DividasSolucao;
 
 import java.util.ArrayList;
 
@@ -30,7 +34,10 @@ public class ViagemFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
-    private int id_usuario = 0;
+    private int id_usuario = 0, id_viagem = 0;
+    TextView txtNomeViagem, txtLocalViagem;
+    ArrayList<Usuario> usuarios;
+    Button sugestaoViagemBtn, finalizarViagemBtn;
     public ViagemFragment(){}
     public  ViagemFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -48,17 +55,42 @@ public class ViagemFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle saveInstanceState){
-        View rootView = inflater.inflate(R.layout.fragment_viagem, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_viagem, container, false);
 
         //pega o ID do usuario logado
         SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.ID_file_key),Context.MODE_PRIVATE);
         id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
 
-        TextView txt = (TextView)rootView.findViewById(R.id.nome_viagem);
+        txtNomeViagem= (TextView)rootView.findViewById(R.id.nome_viagem);
+        txtLocalViagem = (TextView) rootView.findViewById(R.id.local_viagem);
+        sugestaoViagemBtn = (Button) rootView.findViewById(R.id.sugestao_btn);
+        finalizarViagemBtn = (Button) rootView.findViewById(R.id.finalizar_btn);
+        txtNomeViagem.setText("VIAGEM DOS PARÇA"+id_usuario);
+        txtLocalViagem.setText("LAS VEGAS");
 
-        txt.setText(""+id_usuario);
+        UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
+        UsuarioViagemDao usuarioViagemDao = new UsuarioViagemDao(rootView.getContext());
+        id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
+        usuarios = new ArrayList<Usuario>();
+        usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
 
-        UsuarioDao user = new UsuarioDao(rootView.getContext());
+        sugestaoViagemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DividasSolucao dividasSolucao = new DividasSolucao(v.getContext(), usuarios,id_viagem);
+                ArrayList<String> sugestoes = dividasSolucao.getResultado();
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, sugestoes);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle("Sugestão")
+                        .setMessage("teste"+ sugestoes.get(0))
+                        //.setAdapter(adapter, null)
+                        .setPositiveButton("TOP DMS", null);
+                dialog.show();
+            }
+        });
+
+
+
 
 
         //ADAPTER SET TO LISTVIEW

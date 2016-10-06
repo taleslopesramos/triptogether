@@ -18,9 +18,10 @@ import java.util.List;
 public class UsuarioDao {
     private DataBaseHelper dataBaseHelper;
     private SQLiteDatabase database;
-
+    private Context context;
     public UsuarioDao(Context context){
         dataBaseHelper = new DataBaseHelper(context);
+        this.context=context;
     }
 
     private SQLiteDatabase getDatabase(){
@@ -63,8 +64,12 @@ public class UsuarioDao {
     }
 
     public ArrayList<Usuario> listaUsuariosDeUmaViagem(int id_viagem){
-        Cursor cursor = getDatabase().query(DataBaseHelper.Usuario.TABELA,DataBaseHelper.Usuario.COLUNAS,"ID_Viagem = ?",
-                new String[]{Integer.toString(id_viagem)},null,null,null);
+        Cursor cursor = getDatabase().rawQuery(
+                "select Usuario._id as _id,Usuario.nome as nome,Usuario.nickname as nickname," +
+                "Usuario.email as email,Usuario.senha as senha" +
+                "from Usuario join UsuarioViagem on Usuario._id = UsuarioViagem.ID_Usuario " +
+                "where UsuarioViagem.ID_Viagem = ?",// 3 joins
+                new String[]{Integer.toString(id_viagem)});
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
         while (cursor.moveToNext()){

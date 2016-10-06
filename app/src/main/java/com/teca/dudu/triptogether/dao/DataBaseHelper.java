@@ -25,8 +25,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             "\"nickname\" TEXT(25) NOT NULL," +
             "\"email\" TEXT(25) NOT NULL," +
             "\"senha\" TEXT(25) NOT NULL," +
-            "PRIMARY KEY (\"_id\") ," +
-            "CONSTRAINT \"ID_Viagem\" FOREIGN KEY (\"ID_Viagem\") REFERENCES \"Viagem\" (\"_id\") ON DELETE SET NULL" +
+            "PRIMARY KEY (\"_id\")" +
+            //"CONSTRAINT \"ID_Viagem\" FOREIGN KEY (\"ID_Viagem\") REFERENCES \"Viagem\" (\"_id\") ON DELETE SET NULL" +
             ");";
 
     private static final String sqlTabelaItemDespesa = "CREATE TABLE \"ItemDespesa\" (" +

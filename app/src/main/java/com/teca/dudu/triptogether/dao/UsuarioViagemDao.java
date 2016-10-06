@@ -60,6 +60,19 @@ public class UsuarioViagemDao {
         return usuarioViagens;
     }
 
+    public ArrayList<Integer> listaIdUsuarios(int id_viagem){
+        Cursor cursor = getDatabase().query(DataBaseHelper.UsuarioViagem.TABELA,DataBaseHelper.UsuarioViagem.COLUNAS,"ID_Viagem = ?",
+                new String[]{Integer.toString(id_viagem)},null,null,null);
+        ArrayList<Integer> usuarios = new ArrayList<Integer>();
+
+        while (cursor.moveToNext()){
+            UsuarioViagem model = criaUsuarioViagem(cursor);
+            usuarios.add(model.getId_usuario());
+        }
+        cursor.close();
+        return usuarios;
+    }
+
     public long salvarUsuarioViagem(UsuarioViagem usuarioViagem){
         ContentValues valores = new ContentValues();
         valores.put(DataBaseHelper.UsuarioViagem.ID_USUARIO,usuarioViagem.getId_usuario());
@@ -67,16 +80,16 @@ public class UsuarioViagemDao {
         valores.put(DataBaseHelper.UsuarioViagem.DATAFIM,usuarioViagem.getData());
         valores.put(DataBaseHelper.UsuarioViagem.ESTA_ATIVA, (usuarioViagem.estaAtiva()) ? 1 : 0);
 
-        return getDatabase().insert(DataBaseHelper.Viagem.TABELA,null,valores);
+        return getDatabase().insert(DataBaseHelper.UsuarioViagem.TABELA,null,valores);
     }
 
     public boolean removerUsuarioViagem(int id_usuario,int id_viagem){
-        return getDatabase().delete(DataBaseHelper.Viagem.TABELA,"ID_Viagem = ? AND ID_Usuario = ?",
+        return getDatabase().delete(DataBaseHelper.UsuarioViagem.TABELA,"ID_Viagem = ? AND ID_Usuario = ?",
                 new String[]{Integer.toString(id_viagem),Integer.toString(id_usuario)}) > 0;
     }
 
     public UsuarioViagem buscarUsuarioViagemPorId(int id_usuario){
-        Cursor cursor = getDatabase().query(DataBaseHelper.Viagem.TABELA,DataBaseHelper.Viagem.COLUNAS,
+        Cursor cursor = getDatabase().query(DataBaseHelper.UsuarioViagem.TABELA,DataBaseHelper.UsuarioViagem.COLUNAS,
                 "ID_Usuario = ?", new String[]{Integer.toString(id_usuario)},null,null,null);
 
         while(cursor.moveToNext()){
@@ -86,7 +99,7 @@ public class UsuarioViagemDao {
                 return model;
             }
         }
-
+        cursor.close();
         return null;
     }
 
