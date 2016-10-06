@@ -19,6 +19,7 @@ import com.teca.dudu.triptogether.adapter.DespesasAdapter;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
+import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.Despesa;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 
@@ -31,6 +32,7 @@ public class DespesasFragment extends Fragment {
     ListView listDespesas;
     ItemDespesaDao itemDespesaDao;
     UsuarioDao usuarioDao;
+    UsuarioViagemDao usuarioViagemDao;
     public static final String ARG_PAGE = "ARG_PAGE";
 
     private int mPage;
@@ -68,7 +70,8 @@ public class DespesasFragment extends Fragment {
         //pega o ID da viagem do usuario logado
         usuarioDao = new UsuarioDao(rootView.getContext());
         if(id_usuario != -1){
-            id_viagem = usuarioDao.buscarIdViagem(id_usuario);
+            usuarioViagemDao = new UsuarioViagemDao(getContext());
+            id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
         }
         //lista os itens despesas da viagem do usuario logado
         despesas = itemDespesaDao.listaItensDeUmaViagem(id_viagem);

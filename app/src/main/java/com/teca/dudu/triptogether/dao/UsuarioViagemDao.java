@@ -75,16 +75,24 @@ public class UsuarioViagemDao {
                 new String[]{Integer.toString(id_viagem),Integer.toString(id_usuario)}) > 0;
     }
 
-    public UsuarioViagem buscarUsuarioViagemPorId(int id_viagem){
+    public UsuarioViagem buscarUsuarioViagemPorId(int id_usuario){
         Cursor cursor = getDatabase().query(DataBaseHelper.Viagem.TABELA,DataBaseHelper.Viagem.COLUNAS,
-                "ID_Viagem = ?", new String[]{Integer.toString(id_viagem)},null,null,null);
+                "ID_Usuario = ?", new String[]{Integer.toString(id_usuario)},null,null,null);
 
-        if (cursor.moveToNext()){
+        while(cursor.moveToNext()){
             UsuarioViagem model = criaUsuarioViagem(cursor);
-            cursor.close();
-            return model;
+            if(model.estaAtiva()){
+                cursor.close();
+                return model;
+            }
         }
 
         return null;
+    }
+
+
+    public  int buscarIdViagemAtiva(int id_usuario){
+        UsuarioViagem user = buscarUsuarioViagemPorId(id_usuario);
+        return user.getId_viagem();
     }
 }

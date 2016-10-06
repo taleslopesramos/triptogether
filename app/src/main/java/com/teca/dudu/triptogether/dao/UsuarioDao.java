@@ -40,7 +40,6 @@ public class UsuarioDao {
         Usuario model = new Usuario(
 
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.Usuario._ID)),
-                cursor.getInt(cursor.getColumnIndex(DataBaseHelper.Usuario.ID_VIAGEM)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.NOME)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.NICKNAME)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.EMAIL)),
@@ -94,7 +93,6 @@ public class UsuarioDao {
         valores.put(DataBaseHelper.Usuario.NICKNAME,usuario.getNickname());
         valores.put(DataBaseHelper.Usuario.EMAIL,usuario.getEmail());
         valores.put(DataBaseHelper.Usuario.SENHA,usuario.getSenha());
-        valores.put(DataBaseHelper.Usuario.ID_VIAGEM,usuario.getIdViagem());
         valores.put(DataBaseHelper.Usuario.IMG_PERFIL,usuario.getImgPerfil());
 
         if(usuario.get_id() != null){
@@ -123,8 +121,5 @@ public class UsuarioDao {
         return null;
     }
 
-    public  int buscarIdViagem(int id_usuario){
-        Usuario user = buscarUsuarioPorId(id_usuario);
-        return user.getIdViagem();
-    }
+    
 }

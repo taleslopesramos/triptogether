@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.adapter.UsuariosAdapter;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
+import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.teste.UsuarioTeste;
 import com.teca.dudu.triptogether.teste.ViagemTeste;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class UsuariosFragment extends Fragment {
 
     public static final String ARG_PAGE = "ARG_PAGE";
+    UsuarioViagemDao usuarioViagemDao;
     UsuarioDao usuarioDao;
     ArrayList<Usuario> usuarios;
     private int mPage;
@@ -52,7 +54,8 @@ public class UsuariosFragment extends Fragment {
         int id_viagem = -1;
 
         if(id_usuario != -1){
-            id_viagem = usuarioDao.buscarIdViagem(id_usuario);
+            usuarioViagemDao = new UsuarioViagemDao(getContext());
+            id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
         }
 
         usuarios = new ArrayList<Usuario>();

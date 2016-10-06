@@ -21,6 +21,7 @@ import com.teca.dudu.triptogether.adapter.QuemUsouAdapter;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
+import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.Despesa;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.model.Usuario;
@@ -37,6 +38,7 @@ public class AddDespesaActivity extends AppCompatActivity {
 
     ArrayList<Usuario> usuarios;
     UsuarioDao usuarioDao;
+    UsuarioViagemDao usuarioViagemDao;
     ArrayList<UsuarioPagante> usuariosPagantes;
     int id_usuario,id_viagem;
 
@@ -56,15 +58,20 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = this.getSharedPreferences(
                 getString(R.string.ID_file_key), Context.MODE_PRIVATE);
-        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
-        int id_viagem = -1;
+        id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+        id_viagem = -1;
 
         if(id_usuario != -1){//pega a idviagem atual do usuario logado
-            id_viagem = usuarioDao.buscarIdViagem(id_usuario);
+            usuarioViagemDao = new UsuarioViagemDao(this);
+            id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
         }
 
         usuarios  = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
 
+        ids_usuarios = new int[usuarios.size()];
+        for(int i=0;i<usuarios.size();i++){
+            ids_usuarios[i] = usuarios.get(i).get_id();
+        }
 
         descTV = (TextView)findViewById(R.id.desc_text);
         valorTV = (TextView)findViewById(R.id.valor_text);
@@ -94,7 +101,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                 if(descTV.getText() != null && valorTV != null) {//checa se os campos nao estao em branco
                     //add item despesa a tabela
                     ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), categoriasSpinner.getSelectedItem().toString()
-                            , null, valor, 1);
+                            , null, valor, id_viagem);
 
                     int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);
                     //cria a relacao de usuario com despesa na tabela DespesaDao
@@ -108,9 +115,9 @@ public class AddDespesaActivity extends AppCompatActivity {
                 } else{
                     Toast.makeText(v.getContext(), "Preencha os campos", Toast.LENGTH_SHORT).show();
                 }
-                finish();
-                //Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
-                //startActivity(intentmain);
+
+                Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
+                startActivity(intentmain);
             }
 
 
@@ -148,7 +155,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                     Despesa despesa = new Despesa(valorTotal/usuariosPagantes.size(),
                             valorUsuario, id_itemdespesa,
                             usuariosPagantes.get(i).getId_usuario(),
-                            1);
+                            id_viagem);
                     DespesaDao despesaDao = new DespesaDao(v.getContext());
                     despesaDao.salvarDespesa(despesa);
                 }
@@ -185,7 +192,7 @@ public class AddDespesaActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         for(int i=0; i<usuarios.size();i++){
                             if(checkUsuarios[i]) {
-                                usuariosPagantes.add( new UsuarioPagante(ids_usuarios[i]));
+                                usuariosPagantes.add( new UsuarioPagante(ids_usuarios[i])); //null pointer exception
                                 visible = true;
                             }
                         }

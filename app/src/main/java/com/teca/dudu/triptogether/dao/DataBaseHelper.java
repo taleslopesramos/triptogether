@@ -19,7 +19,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     private static final String sqlTabelaUsuario = "CREATE TABLE \"Usuario\" (" +
             "\"_id\" INTEGER," +
-            "\"ID_Viagem\" INTEGER(1)," +
+          //"\"ID_Viagem\" INTEGER(1)," +
             "\"ImgPerfil\" BLOB(1)," +
             "\"nome\" TEXT(25) NOT NULL," +
             "\"nickname\" TEXT(25) NOT NULL," +
@@ -49,11 +49,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             "\"ID_Viagem\" INTEGER," +
             "PRIMARY KEY (\"ID_ItemDespesa\", \"ID_Usuario\", \"ID_Viagem\") " +
             ");";
-    private static final String sqlTabelaUsuarioViagem = "CREATE TABLE ViagemUsuario (" +
+    private static final String sqlTabelaUsuarioViagem = "CREATE TABLE UsuarioViagem (" +
             "      ID_Usuario INTEGER NOT NULL," +
             "      ID_Viagem INTEGER NOT NULL," +
             "      datafim datetime, " +
-            "      estaAtiva INTEGER,"+
+            "      estaAtiva INTEGER NOT NULL,"+
             "      PRIMARY KEY (ID_Usuario,ID_Viagem)," +
             "      CONSTRAINT ID_Viagem FOREIGN KEY (ID_Usuario) REFERENCES Usuario (_id)" +
             "      CONSTRAINT ID_Viagem FOREIGN KEY (ID_Viagem)  REFERENCES Viagem  (_id)" +
@@ -104,13 +104,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     public static class Usuario{
         public static final String TABELA = "Usuario";
         public static final String _ID = "_id";
-        public static final String ID_VIAGEM = "ID_Viagem";
+       // public static final String ID_VIAGEM = "ID_Viagem";
         public static final String NOME = "nome";
         public static final String NICKNAME = "nickname";
         public static final String EMAIL= "email";
         public static final String SENHA = "senha";
         public static final String IMG_PERFIL = "ImgPerfil";
-        public static final String[] COLUNAS = {_ID,ID_VIAGEM,NOME,NICKNAME,EMAIL,SENHA,IMG_PERFIL};
+        public static final String[] COLUNAS = {_ID,NOME,NICKNAME,EMAIL,SENHA,IMG_PERFIL};
     }
 
     public static class UsuarioViagem{
@@ -139,10 +139,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         public static final String TABELA = "Despesa";
         public static final String VALOR_DEVIDO = "ValorDevido";
         public static final String VALOR_PAGO = "ValorPago";
-        public static final String ID_DESPESA = "ID_Despesa";
+        public static final String ID_ITEMDESPESA = "ID_ItemDespesa";
         public static final String ID_USUARIO = "ID_Usuario";
         public static final String ID_VIAGEM = "ID_Viagem";
 
-        public static final String[] COLUNAS = {VALOR_DEVIDO,VALOR_PAGO,ID_DESPESA,ID_USUARIO,ID_VIAGEM};
+        public static final String[] COLUNAS = {VALOR_DEVIDO,VALOR_PAGO,ID_ITEMDESPESA,ID_USUARIO,ID_VIAGEM};
     }
 }
