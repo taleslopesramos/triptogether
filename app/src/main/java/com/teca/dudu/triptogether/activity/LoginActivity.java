@@ -27,14 +27,22 @@ public class LoginActivity extends AppCompatActivity{
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //ve se tem algum usuario logado e loga imediatamente
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.ID_file_key),Context.MODE_PRIVATE);
+        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+
+        if(id_usuario != -1){
+            Intent intentmain = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intentmain);
+            finish();
+        }
 
         usuarioDao = new UsuarioDao(this);
 
         Button facebookLoginBtn = (Button) findViewById(R.id.logfacebook_btn);
         emailEdt = (EditText) findViewById(R.id.login_email);
         senhaEdt = (EditText) findViewById(R.id.login_senha);
-
-
 
         Button LoginBtn = (Button) findViewById(R.id.login_btn);
         TextView registerTxtV = (TextView) findViewById(R.id.register_text_link);
@@ -62,6 +70,7 @@ public class LoginActivity extends AppCompatActivity{
                     if( sharedPref.getInt(getString(R.string.ID_file_key),-1) != -1){//se tiver ocorrido tudo certo nos passos anteriores vai pra main activity
                         Intent intentmain = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intentmain);
+                        finish();
                     }
                 }
                 else {

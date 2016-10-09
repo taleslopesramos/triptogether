@@ -65,7 +65,7 @@ public class ViagemFragment extends Fragment {
         txtLocalViagem = (TextView) rootView.findViewById(R.id.local_viagem);
         sugestaoViagemBtn = (Button) rootView.findViewById(R.id.sugestao_btn);
         finalizarViagemBtn = (Button) rootView.findViewById(R.id.finalizar_btn);
-        txtNomeViagem.setText("VIAGEM DOS PARÇA"+id_usuario);
+        txtNomeViagem.setText("VIAGEM DOS PARÇA");
         txtLocalViagem.setText("LAS VEGAS");
 
         UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
@@ -82,8 +82,8 @@ public class ViagemFragment extends Fragment {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, sugestoes);
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
                         .setTitle("Sugestão")
-                        .setMessage("teste"+ sugestoes.get(0))
-                        //.setAdapter(adapter, null)
+                      //  .setMessage(sugestoes.get(0))
+                        .setAdapter(adapter, null)
                         .setPositiveButton("TOP DMS", null);
                 dialog.show();
             }

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.model.Usuario;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,7 +16,6 @@ import java.util.Iterator;
 public class DividasSolucao {
     private ArrayList<Usuario> users,pagantes,devedores;
     private float saldoPagantes[],saldoDevedores[];
-    private String sSugestoes[];
     private DespesaDao despesaDao;
     private int id_viagem;
     public DividasSolucao(Context context, ArrayList<Usuario> users,int id_viagem) {
@@ -25,24 +25,25 @@ public class DividasSolucao {
         despesaDao = new DespesaDao(context);
         saldoPagantes = new float[25];
         saldoDevedores = new float[25];
-        sSugestoes = new String[24];
         this.id_viagem = id_viagem;
     }
     
     private void setDevedoresEPagantes(){
         int i=0,j=0;
+
+
         for(Iterator<Usuario> iter = users.iterator();iter.hasNext();) {
             Usuario user = iter.next();
             float saldo = despesaDao.saldoDoUsuario(user.get_id(),id_viagem);
 
             if(saldo > 0){
                 pagantes.add(user);
-                saldoPagantes[i] = saldo; // i = posição do usuario no array list pagantes
+                saldoPagantes[i] = (float) Math.floor(saldo); // i = posição do usuario no array list pagantes
                 ++i;
             }
             else if(saldo < 0){
                 devedores.add(user);
-                saldoDevedores[j] = saldo; // j = posição do usuario no array list devedores
+                saldoDevedores[j] = (float) Math.floor(saldo); // j = posição do usuario no array list devedores
                 ++j;
             }
         }

@@ -57,7 +57,7 @@ public class CriaViagemActivity extends AppCompatActivity {
 
                 ListView listUsuarios = (ListView) findViewById(R.id.list_usuarios_cviagem);
                 usuarios = new ArrayList<Usuario>();
-                UsuariosAdapter adapter = new UsuariosAdapter(view.getContext(), usuarios);
+                UsuariosAdapter adapter = new UsuariosAdapter(view.getContext(), usuarios,id_viagem);
                 listUsuarios.setAdapter(adapter);
             }
         });

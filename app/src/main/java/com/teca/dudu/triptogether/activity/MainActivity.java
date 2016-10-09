@@ -1,6 +1,8 @@
 package com.teca.dudu.triptogether.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -119,8 +121,15 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_exit) {
+            SharedPreferences sharedPref = getSharedPreferences(
+                    getString(R.string.ID_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor spEditor = sharedPref.edit();
+            spEditor.clear();
+            spEditor.apply();
+            Intent intentmain = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intentmain);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

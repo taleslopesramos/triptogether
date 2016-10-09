@@ -62,7 +62,7 @@ public class UsuariosFragment extends Fragment {
         usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
         ListView listUsuarios = (ListView) rootView.findViewById(R.id.list_usuarios);
         if(true) {
-            UsuariosAdapter adapter = new UsuariosAdapter(rootView.getContext(), usuarios);
+            UsuariosAdapter adapter = new UsuariosAdapter(rootView.getContext(), usuarios,id_viagem);
             listUsuarios.setAdapter(adapter);
         }
         return rootView;

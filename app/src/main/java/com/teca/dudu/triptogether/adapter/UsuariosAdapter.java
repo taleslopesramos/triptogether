@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
+import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.teste.UsuarioTeste;
 
@@ -18,9 +19,13 @@ import java.util.ArrayList;
  * Created by DUDU on 29/09/2016.
  */
 public class UsuariosAdapter extends ArrayAdapter<Usuario>{
+    DespesaDao despesaDao;
+    int id_viagem;
 
-    public UsuariosAdapter(Context context, ArrayList<Usuario> usuarios){
+    public UsuariosAdapter(Context context, ArrayList<Usuario> usuarios,int id_viagem){
         super(context, 0, usuarios);
+        despesaDao = new DespesaDao(context);
+        this.id_viagem = id_viagem;
     }
 
     @Override
@@ -40,7 +45,8 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario>{
 
         // TO DO
         // quanto o usuário pagou ou deve
-        txtStatusUsuario.setText("SALDO DO USUARIO");
+        float saldo = (float) Math.floor(despesaDao.saldoDoUsuario(currentUsuario.get_id(),id_viagem));
+        txtStatusUsuario.setText("R$ "+Float.toString(saldo));
         //TO DO
         //Imagem do usuario
 
