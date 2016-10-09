@@ -65,7 +65,7 @@ public class ViagemDao {
 
 
         if(viagem.get_id() != null){
-            return getDatabase().update(DataBaseHelper.Usuario.TABELA,valores, "_id = ?",
+            return getDatabase().update(DataBaseHelper.Viagem.TABELA,valores, "_id = ?",
                     new String[]{viagem.get_id().toString()});
         }
         return getDatabase().insert(DataBaseHelper.Viagem.TABELA,null,valores);

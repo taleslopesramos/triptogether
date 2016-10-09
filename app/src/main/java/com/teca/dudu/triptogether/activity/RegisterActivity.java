@@ -48,8 +48,11 @@ public class RegisterActivity extends AppCompatActivity{
                 long id_usuario = usuarioDao.salvarUsuario(new Usuario(null, nome.getText().toString(),
                         nick.getText().toString(), email.getText().toString(),
                         senha.getText().toString()));
-                usuarioViagemDao.salvarUsuarioViagem(new UsuarioViagem((int)id_usuario,2,true));
-                viagemDao.salvarViagem(new Viagem(2,"Las Vegas"));
+
+                usuarioViagemDao.salvarUsuarioViagem(new UsuarioViagem((int)id_usuario,1,true));
+
+                viagemDao.salvarViagem(new Viagem(null,"Las Vegas"));
+
                 SharedPreferences sharedPref = getSharedPreferences(
                         getString(R.string.ID_file_key), Context.MODE_PRIVATE);
 

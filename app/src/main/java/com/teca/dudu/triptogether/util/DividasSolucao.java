@@ -42,7 +42,7 @@ public class DividasSolucao {
             }
             else if(saldo < 0){
                 devedores.add(user);
-                saldoPagantes[j] = saldo; // j = posição do usuario no array list devedores
+                saldoDevedores[j] = saldo; // j = posição do usuario no array list devedores
                 ++j;
             }
         }
@@ -64,15 +64,14 @@ public class DividasSolucao {
             }
 
             while(saldoPagantes[pagantes.indexOf(pagante)] > 0){
-                if (indexReajuste != -1) { //se o ultimo devedor não tiver pago tudo ainda
-                                           // ele deve pagar para o proximo pagante e não trocar de devedor
+                if (indexReajuste != -1) { //se o ultimo devedor não tiver pago tudo ainda ele deve pagar para o proximo pagante e não trocar de devedor
                     devedor = iter2.next();//caso ele tiver pago passa pro proximo devedor
                     indexReajuste =-1;
                 }
 
 
-                saldoPagantes[pagantes.indexOf(pagante)] +=     //decrementa do saldo do (iterador)pagante o saldo dos (iterador)devedores
-                        saldoDevedores[devedores.indexOf(devedor)];
+                saldoPagantes[pagantes.indexOf(pagante)] +=
+                        saldoDevedores[devedores.indexOf(devedor)]; //decrementa do saldo do (iterador)pagante o saldo dos (iterador)devedores
 
 
                 if(saldoPagantes[pagantes.indexOf(pagante)] >= 0){ //se o devedor tiver pago tudo o que devia cria a sugestão
