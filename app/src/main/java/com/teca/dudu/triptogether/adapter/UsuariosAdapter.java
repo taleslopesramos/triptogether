@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Created by DUDU on 29/09/2016.
  */
 public class UsuariosAdapter extends ArrayAdapter<Usuario>{
-
     public UsuariosAdapter(Context context, ArrayList<Usuario> usuarios){
         super(context, 0, usuarios);
     }

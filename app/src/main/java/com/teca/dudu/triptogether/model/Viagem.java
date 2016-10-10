@@ -6,12 +6,14 @@ package com.teca.dudu.triptogether.model;
 public class Viagem {
     private Integer _id;
     private String local;
+    private String nome;
 
     public Viagem(){};
 
-    public Viagem(Integer _id, String local) {
+    public Viagem(Integer _id, String local, String nome) {
         this._id = _id;
         this.local = local;
+        this.nome = nome;
     }
 
     public String getLocal() {
@@ -30,4 +32,11 @@ public class Viagem {
         this._id = _id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

@@ -51,8 +51,6 @@ public class RegisterActivity extends AppCompatActivity{
 
                 usuarioViagemDao.salvarUsuarioViagem(new UsuarioViagem((int)id_usuario,1,true));
 
-                viagemDao.salvarViagem(new Viagem(null,"Las Vegas"));
-
                 SharedPreferences sharedPref = getSharedPreferences(
                         getString(R.string.ID_file_key), Context.MODE_PRIVATE);
 
@@ -60,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity{
                 spEditor.putInt(getString(R.string.ID_file_key), (int)id_usuario);
                 spEditor.apply();
 
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, CriaViagemActivity.class);
                 startActivity(intent);
                 finish();
             }

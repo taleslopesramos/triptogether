@@ -27,6 +27,7 @@
         <activity android:name=".activity.AddDespesaActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name="com.teca.dudu.triptogether.activity.CriaViagemActivity"></activity>
     </application>
 
 </manifest>

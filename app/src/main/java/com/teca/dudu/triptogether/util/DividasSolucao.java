@@ -28,25 +28,28 @@ public class DividasSolucao {
         sSugestoes = new String[24];
         this.id_viagem = id_viagem;
     }
-    
+
     private void setDevedoresEPagantes(){
         int i=0,j=0;
+
+
         for(Iterator<Usuario> iter = users.iterator();iter.hasNext();) {
             Usuario user = iter.next();
             float saldo = despesaDao.saldoDoUsuario(user.get_id(),id_viagem);
 
             if(saldo > 0){
                 pagantes.add(user);
-                saldoPagantes[i] = saldo; // i = posição do usuario no array list pagantes
+                saldoPagantes[i] = (float) Math.floor(saldo); // i = posição do usuario no array list pagantes
                 ++i;
             }
             else if(saldo < 0){
                 devedores.add(user);
-                saldoDevedores[j] = saldo; // j = posição do usuario no array list devedores
+                saldoDevedores[j] = (float) Math.floor(saldo); // j = posição do usuario no array list devedores
                 ++j;
             }
         }
     }
+
 
     public ArrayList<String> getResultado(){
         setDevedoresEPagantes();

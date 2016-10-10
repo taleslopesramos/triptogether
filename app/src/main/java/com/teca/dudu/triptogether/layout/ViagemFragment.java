@@ -19,9 +19,11 @@ import com.teca.dudu.triptogether.activity.LoginActivity;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
+import com.teca.dudu.triptogether.dao.ViagemDao;
 import com.teca.dudu.triptogether.model.CurrentUsuario;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.model.Usuario;
+import com.teca.dudu.triptogether.model.Viagem;
 import com.teca.dudu.triptogether.util.DividasSolucao;
 
 import java.util.ArrayList;
@@ -60,17 +62,18 @@ public class ViagemFragment extends Fragment {
         //pega o ID do usuario logado
         SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.ID_file_key),Context.MODE_PRIVATE);
         id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
-
-        txtNomeViagem= (TextView)rootView.findViewById(R.id.nome_viagem);
-        txtLocalViagem = (TextView) rootView.findViewById(R.id.local_viagem);
-        sugestaoViagemBtn = (Button) rootView.findViewById(R.id.sugestao_btn);
-        finalizarViagemBtn = (Button) rootView.findViewById(R.id.finalizar_btn);
-        txtNomeViagem.setText("VIAGEM DOS PARÇA"+id_usuario);
-        txtLocalViagem.setText("LAS VEGAS");
-
-        UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
         UsuarioViagemDao usuarioViagemDao = new UsuarioViagemDao(rootView.getContext());
         id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
+        ViagemDao viagemDao= new ViagemDao(rootView.getContext());
+        Viagem viagemAtual = viagemDao.buscarViagemPorId(id_viagem);
+        txtNomeViagem= (TextView)rootView.findViewById(R.id.nome_viagem);
+        txtNomeViagem.setText(viagemAtual.getNome());
+        txtLocalViagem = (TextView) rootView.findViewById(R.id.local_viagem);
+        txtLocalViagem.setText(viagemAtual.getLocal());
+        sugestaoViagemBtn = (Button) rootView.findViewById(R.id.sugestao_btn);
+        finalizarViagemBtn = (Button) rootView.findViewById(R.id.finalizar_btn);
+
+        UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
         usuarios = new ArrayList<Usuario>();
         usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
 
@@ -82,8 +85,8 @@ public class ViagemFragment extends Fragment {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, sugestoes);
                 AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
                         .setTitle("Sugestão")
-                        .setMessage("teste"+ sugestoes.get(0))
-                        //.setAdapter(adapter, null)
+                        //.setMessage("(teste)"+ sugestoes.get(0))
+                        .setAdapter(adapter, null)
                         .setPositiveButton("TOP DMS", null);
                 dialog.show();
             }

@@ -14,6 +14,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     private static final String sqlTabelaViagem = "CREATE TABLE \"Viagem\" (" +
             "\"_id\" INTEGER," +
             "\"Local\" TEXT(20) NOT NULL," +
+            "\"Nome\" TEXT (20) NOT NULL," +
             "PRIMARY KEY (\"_id\")" +
             ");";
 
@@ -97,8 +98,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         public static final String TABELA = "Viagem";
         public static final String _ID = "_id";
         public static final String LOCAL = "Local";
-
-        public static final String[] COLUNAS = {_ID,LOCAL};
+        public static final String NOME = "Nome";
+        public static final String[] COLUNAS = {_ID,LOCAL, NOME};
     }
 
     public static class Usuario{

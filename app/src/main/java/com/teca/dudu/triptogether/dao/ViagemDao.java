@@ -40,7 +40,8 @@ public class ViagemDao {
     private Viagem criaViagem(Cursor cursor){
         Viagem model = new Viagem(
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.Viagem._ID)),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.Viagem.LOCAL))
+                cursor.getString(cursor.getColumnIndex(DataBaseHelper.Viagem.LOCAL)),
+                cursor.getString(cursor.getColumnIndex(DataBaseHelper.Viagem.NOME))
         );
 
         return model;
@@ -59,9 +60,24 @@ public class ViagemDao {
         return viagens;
     }
 
+    public ArrayList<Viagem> listaViagensDeUmUsuario(int id_usuario) {
+        Cursor cursor = getDatabase().rawQuery("SELECT Viagem._id as _id,Viagem.Local as Local,Viagem.Nome as Nome " +
+                "FROM Viagem JOIN UsuarioViagem on Viagem._id = UsuarioViagem.ID_Viagem " +
+                "WHERE UsuarioViagem.ID_Usuario = ?;",new String[]{Integer.toString(id_usuario)});
+
+        ArrayList<Viagem> viagens = new ArrayList<Viagem>();
+
+        while (cursor.moveToNext()){
+            Viagem model = criaViagem(cursor);
+            viagens.add(model);
+        }
+        cursor.close();
+        return viagens;
+    }
     public long salvarViagem(Viagem viagem){
         ContentValues valores = new ContentValues();
         valores.put(DataBaseHelper.Viagem.LOCAL,viagem.getLocal());
+        valores.put(DataBaseHelper.Viagem.NOME, viagem.getNome());
 
 
         if(viagem.get_id() != null){
