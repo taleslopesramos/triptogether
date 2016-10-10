@@ -61,7 +61,7 @@ public class CriaViagemActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_usuario_viagem);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+              public void onClick(View view) {
                 final Dialog viagemDialog = new Dialog(view.getContext());
                 EditText localedt = (EditText)findViewById(R.id.local_viagem);
                 viagemDialog.setTitle("Nova Viagem");
