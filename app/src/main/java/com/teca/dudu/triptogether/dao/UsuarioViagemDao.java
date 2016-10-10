@@ -39,8 +39,8 @@ public class UsuarioViagemDao {
 
     private UsuarioViagem criaUsuarioViagem(Cursor cursor){
         UsuarioViagem model = new UsuarioViagem(
-                cursor.getInt(cursor.getColumnIndex(DataBaseHelper.UsuarioViagem.ID_VIAGEM)),
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.UsuarioViagem.ID_USUARIO)),
+                cursor.getInt(cursor.getColumnIndex(DataBaseHelper.UsuarioViagem.ID_VIAGEM)),
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.UsuarioViagem.ESTA_ATIVA))!=0
                 );
 

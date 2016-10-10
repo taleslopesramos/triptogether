@@ -5,6 +5,7 @@ import android.content.Context;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.model.Usuario;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -15,7 +16,6 @@ import java.util.Iterator;
 public class DividasSolucao {
     private ArrayList<Usuario> users,pagantes,devedores;
     private float saldoPagantes[],saldoDevedores[];
-    private String sSugestoes[];
     private DespesaDao despesaDao;
     private int id_viagem;
     public DividasSolucao(Context context, ArrayList<Usuario> users,int id_viagem) {
@@ -25,7 +25,6 @@ public class DividasSolucao {
         despesaDao = new DespesaDao(context);
         saldoPagantes = new float[25];
         saldoDevedores = new float[25];
-        sSugestoes = new String[24];
         this.id_viagem = id_viagem;
     }
 
