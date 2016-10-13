@@ -47,7 +47,7 @@ public class UsuarioViagemDao {
         return model;
     }
 
-    public ArrayList<UsuarioViagem> listaUsuarioViagens(){
+    public ArrayList<UsuarioViagem> listaViagensDeUsuario(int id_usuario){
         Cursor cursor = getDatabase().query(DataBaseHelper.UsuarioViagem.TABELA,
                 DataBaseHelper.UsuarioViagem.COLUNAS,null,null,null,null,null);
         ArrayList<UsuarioViagem> usuarioViagens = new ArrayList<UsuarioViagem>();
@@ -88,7 +88,7 @@ public class UsuarioViagemDao {
                 new String[]{Integer.toString(id_viagem),Integer.toString(id_usuario)}) > 0;
     }
 
-    public UsuarioViagem buscarUsuarioViagemPorId(int id_usuario){
+    public UsuarioViagem buscarUsuarioViagemAtivaPorId(int id_usuario){
         Cursor cursor = getDatabase().query(DataBaseHelper.UsuarioViagem.TABELA,DataBaseHelper.UsuarioViagem.COLUNAS,
                 "ID_Usuario = ?", new String[]{Integer.toString(id_usuario)},null,null,null);
 
@@ -104,8 +104,24 @@ public class UsuarioViagemDao {
     }
 
 
-    public  int buscarIdViagemAtiva(int id_usuario){
-        UsuarioViagem user = buscarUsuarioViagemPorId(id_usuario);
+    public int buscarIdViagemAtiva(int id_usuario){
+        UsuarioViagem user = buscarUsuarioViagemAtivaPorId(id_usuario);
+        if(user != null){
+            return user.getId_viagem();
+        }
+        else{
+            return -1;
+        }
+
+    }
+
+    public int setViagemAtiva(int id_usuario,boolean bool){
+        UsuarioViagem user = buscarUsuarioViagemAtivaPorId(id_usuario);
+
+        user.setEstaAtiva(bool);
+        salvarUsuarioViagem(user);
+
         return user.getId_viagem();
     }
+
 }

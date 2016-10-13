@@ -31,11 +31,8 @@ public class DespesasFragment extends Fragment {
     FloatingActionButton fabAddDespesa;
     ListView listDespesas;
     ItemDespesaDao itemDespesaDao;
-    UsuarioDao usuarioDao;
-    UsuarioViagemDao usuarioViagemDao;
     public static final String ARG_PAGE = "ARG_PAGE";
 
-    private int mPage;
     public DespesasFragment(){}
     public  DespesasFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -57,46 +54,37 @@ public class DespesasFragment extends Fragment {
                              Bundle saveInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_despesas, container, false);
 
-        listDespesas = (ListView)rootView.findViewById(R.id.list_despesas);
-
-        itemDespesaDao = new ItemDespesaDao(rootView.getContext());
-        despesas = new ArrayList<ItemDespesa>();
-
-        //pega o ID do usuario logado
         SharedPreferences sharedPref = getActivity().getSharedPreferences(
-                getString(R.string.ID_file_key), Context.MODE_PRIVATE);
-        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
-        int id_viagem = -1;
-        //pega o ID da viagem do usuario logado
-        usuarioDao = new UsuarioDao(rootView.getContext());
-        if(id_usuario != -1){
-            usuarioViagemDao = new UsuarioViagemDao(getContext());
-            id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
-        }
+                getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
+
+        int id_viagem = sharedPref.getInt(getString(R.string.ID_VIAGEM_file_key),-1);
+
         //lista os itens despesas da viagem do usuario logado
-        despesas = itemDespesaDao.listaItensDeUmaViagem(id_viagem);
+        if(id_viagem !=-1) {
+            listDespesas = (ListView)rootView.findViewById(R.id.list_despesas);
 
-        if(despesas.size() >= 1){
-            DespesasAdapter adapter= new DespesasAdapter(rootView.getContext(), despesas);
-            listDespesas.setAdapter(adapter);
+            itemDespesaDao = new ItemDespesaDao(rootView.getContext());
+            despesas = new ArrayList<ItemDespesa>();
+
+            despesas = itemDespesaDao.listaItensDeUmaViagem(id_viagem);
+
+            if (despesas.size() >= 1) {
+                DespesasAdapter adapter = new DespesasAdapter(rootView.getContext(), despesas);
+                listDespesas.setAdapter(adapter);
+            }
+            //botao pra adicionar despesa
+            fabAddDespesa = (FloatingActionButton) rootView.findViewById(R.id.fabadd_despesa);
+            if (fabAddDespesa != null) {
+                fabAddDespesa.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intentadddespesas = new Intent(v.getContext(), AddDespesaActivity.class);
+                        startActivity(intentadddespesas);
+                    }
+                });
+
+            }
         }
-        //botao pra adicionar despesa
-        fabAddDespesa = (FloatingActionButton) rootView.findViewById(R.id.fabadd_despesa);
-        if(fabAddDespesa != null){
-            fabAddDespesa.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intentadddespesas = new Intent(v.getContext(), AddDespesaActivity.class);
-                    startActivity(intentadddespesas);
-                }
-            });
-
-        }
-
-        //ADAPTER SET TO LISTVIEW
-
-        //ListAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, despesas);
-        //setListAdapter(adapter);
 
         return rootView;
 

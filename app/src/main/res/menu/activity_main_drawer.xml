@@ -4,21 +4,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_add_despesa"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Add despesa" />
-        <item
             android:id="@+id/nav_cria_viagem"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Criar Viagem" />
         <item
+            android:id="@+id/nav_add_integrante"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Adicionar Integrante" />
+        <item
+            android:id="@+id/nav_add_despesa"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Adicionar Despesa" />
+        <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
 
     <item android:title="Communicate">

@@ -64,36 +64,38 @@ public class ViagemFragment extends Fragment {
         id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
         UsuarioViagemDao usuarioViagemDao = new UsuarioViagemDao(rootView.getContext());
         id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
-        ViagemDao viagemDao= new ViagemDao(rootView.getContext());
-        Viagem viagemAtual = viagemDao.buscarViagemPorId(id_viagem);
-        txtNomeViagem= (TextView)rootView.findViewById(R.id.nome_viagem);
-        txtNomeViagem.setText(viagemAtual.getNome());
-        txtLocalViagem = (TextView) rootView.findViewById(R.id.local_viagem);
-        txtLocalViagem.setText(viagemAtual.getLocal());
-        sugestaoViagemBtn = (Button) rootView.findViewById(R.id.sugestao_btn);
-        finalizarViagemBtn = (Button) rootView.findViewById(R.id.finalizar_btn);
 
-        UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
-        usuarios = new ArrayList<Usuario>();
-        usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
+        if(id_viagem != -1) {
+            ViagemDao viagemDao = new ViagemDao(rootView.getContext());
+            Viagem viagemAtual = viagemDao.buscarViagemPorId(id_viagem);
 
-        sugestaoViagemBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DividasSolucao dividasSolucao = new DividasSolucao(v.getContext(), usuarios,id_viagem);
-                ArrayList<String> sugestoes = dividasSolucao.getResultado();
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, sugestoes);
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
-                        .setTitle("Sugestão")
-                        //.setMessage("(teste)"+ sugestoes.get(0))
-                        .setAdapter(adapter, null)
-                        .setPositiveButton("TOP DMS", null);
-                dialog.show();
-            }
-        });
+            txtNomeViagem = (TextView) rootView.findViewById(R.id.nome_viagem);
+            txtNomeViagem.setText(viagemAtual.getNome());
+            txtLocalViagem = (TextView) rootView.findViewById(R.id.local_viagem);
+            txtLocalViagem.setText(viagemAtual.getLocal());
+            sugestaoViagemBtn = (Button) rootView.findViewById(R.id.sugestao_btn);
 
+            finalizarViagemBtn = (Button) rootView.findViewById(R.id.finalizar_btn);
 
+            UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
+            usuarios = new ArrayList<Usuario>();
+            usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
 
+            sugestaoViagemBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DividasSolucao dividasSolucao = new DividasSolucao(v.getContext(), usuarios, id_viagem);
+                    ArrayList<String> sugestoes = dividasSolucao.getResultado();
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, sugestoes);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
+                            .setTitle("Sugestão")
+                            //.setMessage("(teste)"+ sugestoes.get(0))
+                            .setAdapter(adapter, null)
+                            .setPositiveButton("TOP DMS", null);
+                    dialog.show();
+                }
+            });
+        }
 
 
         //ADAPTER SET TO LISTVIEW

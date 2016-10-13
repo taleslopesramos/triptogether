@@ -49,7 +49,6 @@ public class RegisterActivity extends AppCompatActivity{
                         nick.getText().toString(), email.getText().toString(),
                         senha.getText().toString()));
 
-                usuarioViagemDao.salvarUsuarioViagem(new UsuarioViagem((int)id_usuario,1,true));
 
                 SharedPreferences sharedPref = getSharedPreferences(
                         getString(R.string.ID_file_key), Context.MODE_PRIVATE);
@@ -58,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity{
                 spEditor.putInt(getString(R.string.ID_file_key), (int)id_usuario);
                 spEditor.apply();
 
-                Intent intent = new Intent(RegisterActivity.this, CriaViagemActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }

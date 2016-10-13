@@ -18,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.layout.ViagemFragment;
@@ -39,9 +40,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         viagem = new ViagemTeste();
-
+        
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -117,8 +118,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_cria_viagem) {
             Intent intent = new Intent(this, CriaViagemActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_add_integrante) {
+            Intent intent = new Intent(this, AddIntegranteActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_exit) {
@@ -127,6 +129,13 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor spEditor = sharedPref.edit();
             spEditor.clear();
             spEditor.apply();
+
+            sharedPref = getSharedPreferences(
+                    getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
+            spEditor = sharedPref.edit();
+            spEditor.clear();
+            spEditor.apply();
+
             Intent intentmain = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(intentmain);
             finish();

@@ -22,10 +22,10 @@ import java.util.ArrayList;
 public class UsuariosFragment extends Fragment {
 
     public static final String ARG_PAGE = "ARG_PAGE";
-    UsuarioViagemDao usuarioViagemDao;
     UsuarioDao usuarioDao;
     ArrayList<Usuario> usuarios;
-    private int mPage;
+
+
     public UsuariosFragment(){}
     public  UsuariosFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -45,25 +45,22 @@ public class UsuariosFragment extends Fragment {
                              Bundle saveInstanceState){
         View rootView = inflater.inflate(R.layout.fragment_usuarios, container, false);
 
+
         SharedPreferences sharedPref = getActivity().getSharedPreferences(
-                getString(R.string.ID_file_key), Context.MODE_PRIVATE);
-        //ADAPTER SET TO LISTVIEW
+                getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
+
+        int id_viagem = sharedPref.getInt(getString(R.string.ID_VIAGEM_file_key),-1);
+
         usuarioDao = new UsuarioDao(rootView.getContext());
-
-        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
-        int id_viagem = -1;
-
-        if(id_usuario != -1){
-            usuarioViagemDao = new UsuarioViagemDao(getContext());
-            id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
-        }
-
-        usuarios = new ArrayList<Usuario>();
-        usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
-        ListView listUsuarios = (ListView) rootView.findViewById(R.id.list_usuarios);
-        if(usuarios.size() >= 1) {
-            UsuariosAdapter adapter = new UsuariosAdapter(rootView.getContext(), usuarios);
-            listUsuarios.setAdapter(adapter);
+        //ADAPTER SET TO LISTVIEW
+        if(id_viagem != -1) {
+            usuarios = new ArrayList<Usuario>();
+            usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
+            ListView listUsuarios = (ListView) rootView.findViewById(R.id.list_usuarios);
+            if (usuarios.size() >= 1) {
+                UsuariosAdapter adapter = new UsuariosAdapter(rootView.getContext(), usuarios);
+                listUsuarios.setAdapter(adapter);
+            }
         }
         return rootView;
 

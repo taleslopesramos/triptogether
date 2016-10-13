@@ -41,19 +41,11 @@ public class DespesasAdapter extends ArrayAdapter<ItemDespesa>{
         TextView txtValor = (TextView)listViewItem.findViewById(R.id.itemdespesa_valor);
         txtValor.setText(currentDespesa.getValor().toString());
 
-        // TO DO
-        // quanto o usuário pagou ou deve
-       // txtStatusUsuario.setText(currentUsuario.getDescricao());
-        //TO DO
-        //Imagem do usuario
 
         ImageView imgDespesa = (ImageView) listViewItem.findViewById(R.id.itemdespesa_img);
         imgDespesa.setImageResource(android.R.drawable.ic_lock_silent_mode);
 
-
-
         return listViewItem;
-
     }
 }
 

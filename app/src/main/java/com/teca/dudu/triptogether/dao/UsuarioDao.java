@@ -112,6 +112,18 @@ public class UsuarioDao {
                 new String[]{Integer.toString(id)}) > 0;
     }
 
+    public Usuario buscarUsuarioPorEmail(String email){
+        Cursor cursor = getDatabase().query(DataBaseHelper.Usuario.TABELA,DataBaseHelper.Usuario.COLUNAS,"Email = ?",
+                new String[]{email},null,null,null);
+        if (cursor.moveToNext()){
+            Usuario model = criaUsuario(cursor);
+            cursor.close();
+            return model;
+        }
+        cursor.close();
+        return null;
+    }
+
     public Usuario buscarUsuarioPorId(int id){
         Cursor cursor = getDatabase().query(DataBaseHelper.Usuario.TABELA,DataBaseHelper.Usuario.COLUNAS, "_id = ?",
                 new String[]{Integer.toString(id)},null,null,null);

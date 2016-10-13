@@ -24,10 +24,15 @@
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.AddDespesaActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".activity.RegisterActivity"></activity>
-        <activity android:name="com.teca.dudu.triptogether.activity.CriaViagemActivity"></activity>
+        <activity
+            android:name=".activity.AddDespesaActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.CriaViagemActivity" />
+        <activity
+            android:name=".activity.AddIntegranteActivity"
+            android:label="@string/title_activity_add_integrante"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

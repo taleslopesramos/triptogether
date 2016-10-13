@@ -63,7 +63,6 @@ public class CriaViagemActivity extends AppCompatActivity {
             @Override
               public void onClick(View view) {
                 final Dialog viagemDialog = new Dialog(view.getContext());
-                EditText localedt = (EditText)findViewById(R.id.local_viagem);
                 viagemDialog.setTitle("Nova Viagem");
                 viagemDialog.setContentView(R.layout.dialog_addviagem);
                 TextView nomeText = (TextView) viagemDialog.findViewById(R.id.dialogtext_nome);
@@ -81,7 +80,14 @@ public class CriaViagemActivity extends AppCompatActivity {
                         id_viagem = (int) viagemDao.salvarViagem(new Viagem(null,localViagem,nomeViagem));
                         usuarioViagemDao.salvarUsuarioViagem(new UsuarioViagem(id_usuario, id_viagem, true));
 
-                        Intent intent = new Intent(CriaViagemActivity.this, MainActivity.class);
+                        SharedPreferences sharedPref = getSharedPreferences(
+                                getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
+
+                        SharedPreferences.Editor spEditor = sharedPref.edit();
+                        spEditor.putInt(getString(R.string.ID_VIAGEM_file_key), (int)id_viagem);//salva a id_viagem ativa do usuario logado
+                        spEditor.apply();
+
+                        Intent intent = new Intent(CriaViagemActivity.this, AddIntegranteActivity.class);
                         startActivity(intent);
                     }
                 });

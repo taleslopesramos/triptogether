@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * Created by DUDU on 29/09/2016.
  */
 public class UsuariosAdapter extends ArrayAdapter<Usuario>{
+
     public UsuariosAdapter(Context context, ArrayList<Usuario> usuarios){
         super(context, 0, usuarios);
     }
@@ -37,11 +38,9 @@ public class UsuariosAdapter extends ArrayAdapter<Usuario>{
         TextView txtStatusUsuario = (TextView) listViewItem.findViewById(R.id.itemusuario_desc);
 
 
-        // TO DO
-        // quanto o usuário pagou ou deve
+        // TODO quanto o usuário pagou ou deve
         txtStatusUsuario.setText("SALDO DO USUARIO");
-        //TO DO
-        //Imagem do usuario
+        //TODO Imagem do usuario
 
         ImageView imgUsuario = (ImageView) listViewItem.findViewById(R.id.itemusuario_img);
 
