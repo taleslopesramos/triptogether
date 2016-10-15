@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viagem = new ViagemTeste();
-        
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -121,8 +121,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_add_integrante) {
             Intent intent = new Intent(this, AddIntegranteActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_lista_viagens) {
+            Intent intent = new Intent(this, ListaViagensActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_exit) {
             SharedPreferences sharedPref = getSharedPreferences(
                     getString(R.string.ID_file_key), Context.MODE_PRIVATE);

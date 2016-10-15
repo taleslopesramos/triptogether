@@ -1,8 +1,10 @@
 package com.teca.dudu.triptogether.layout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.teca.dudu.triptogether.R;
+import com.teca.dudu.triptogether.activity.AddIntegranteActivity;
 import com.teca.dudu.triptogether.adapter.UsuariosAdapter;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
@@ -62,8 +65,16 @@ public class UsuariosFragment extends Fragment {
                 listUsuarios.setAdapter(adapter);
             }
         }
-        return rootView;
+        FloatingActionButton fbaddUsuario = (FloatingActionButton) rootView.findViewById(R.id.fabadd_usuario);
 
+        fbaddUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentaddintegrante = new Intent(view.getContext(), AddIntegranteActivity.class);
+                startActivity(intentaddintegrante);
+            }
+        });
+        return rootView;
     }
     /*
     @Override

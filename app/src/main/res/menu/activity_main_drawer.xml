@@ -16,9 +16,9 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Adicionar Despesa" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_lista_viagens"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Viagens" />
     </group>
 
     <item android:title="Communicate">

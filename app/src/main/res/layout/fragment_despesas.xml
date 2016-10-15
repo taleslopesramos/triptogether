@@ -26,13 +26,16 @@
             android:clickable="true"
             android:layout_gravity="right|bottom"
             android:src="@android:drawable/ic_menu_add"
-            android:layout_marginRight="26dp"
-            android:layout_marginBottom="63dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="26dp"
-            android:id="@+id/fabadd_despesa" />
+            android:layout_marginEnd="30dp"
+            android:id="@+id/fabadd_despesa"
+            app:backgroundTint="?attr/actionModeSplitBackground"
+            app:rippleColor="?attr/colorButtonNormal"
+            app:srcCompat="@android:drawable/ic_input_add" />
     </RelativeLayout>
 
 </FrameLayout>

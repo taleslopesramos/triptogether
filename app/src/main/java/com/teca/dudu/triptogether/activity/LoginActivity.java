@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
+import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 
 
 public class LoginActivity extends AppCompatActivity{
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity{
     EditText senhaEdt;
     String email, senha;
     UsuarioDao usuarioDao;
+    UsuarioViagemDao usuarioViagemDao;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity{
         }
 
         usuarioDao = new UsuarioDao(this);
+        usuarioViagemDao = new UsuarioViagemDao(this);
 
         Button facebookLoginBtn = (Button) findViewById(R.id.logfacebook_btn);
         emailEdt = (EditText) findViewById(R.id.login_email);
@@ -67,7 +70,18 @@ public class LoginActivity extends AppCompatActivity{
                     SharedPreferences.Editor spEditor = sharedPref.edit();
                     spEditor.putInt(getString(R.string.ID_file_key), id_usuario);
                     spEditor.apply();
+
                     if( sharedPref.getInt(getString(R.string.ID_file_key),-1) != -1){//se tiver ocorrido tudo certo nos passos anteriores vai pra main activity
+                        int id_viagem = -1;
+                        sharedPref = getSharedPreferences(
+                                getString(R.string.ID_VIAGEM_file_key),Context.MODE_PRIVATE);
+                        spEditor = sharedPref.edit();
+
+                        id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
+
+                        spEditor.putInt(getString(R.string.ID_VIAGEM_file_key), id_viagem);
+                        spEditor.apply();
+
                         Intent intentmain = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intentmain);
                         finish();

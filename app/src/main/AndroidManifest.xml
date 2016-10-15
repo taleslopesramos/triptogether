@@ -32,7 +32,8 @@
         <activity
             android:name=".activity.AddIntegranteActivity"
             android:label="@string/title_activity_add_integrante"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ListaViagensActivity"></activity>
     </application>
 
 </manifest>

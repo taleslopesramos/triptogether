@@ -48,6 +48,7 @@ public class ViagensAdapter extends ArrayAdapter<Viagem> {
         if(listViewItem == null)
             listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_item_viagens, parent, false);
 
+
         Viagem currentViagem = getItem(position);
 
         TextView txtNomeViagem= (TextView) listViewItem.findViewById(R.id.itemviagem_nome);
@@ -56,10 +57,10 @@ public class ViagensAdapter extends ArrayAdapter<Viagem> {
 
         TextView txtLocalViagem = (TextView) listViewItem.findViewById(R.id.itemviagem_local);
 
+        txtLocalViagem.setText(currentViagem.getLocal());
 
         // TO DO
         // quanto o usuário pagou ou deve
-        txtLocalViagem.setText("SALDO DO USUARIO");
         //TO DO
         //Imagem do usuario
 
@@ -67,5 +68,6 @@ public class ViagensAdapter extends ArrayAdapter<Viagem> {
         return listViewItem;
 
     }
+
 
 }
