@@ -7,11 +7,15 @@ public class ItemDespesa {
     private Integer _id;
     private String moeda;
     private String descricao;
-    private String categoria;
+    private Integer categoria;
+    private String dataHora;
+    private Float valor;
+    private Integer idviagem;
+    private int icon;
 
     public ItemDespesa(){};
 
-    public ItemDespesa(Integer _id, String moeda, String descricao, String categoria,
+    public ItemDespesa(Integer _id, String moeda, String descricao, Integer categoria,
                    String dataHora, Float valor, Integer idviagem) {
         this._id = _id;
         this.moeda = moeda;
@@ -22,9 +26,24 @@ public class ItemDespesa {
         this.idviagem = idviagem;
     }
 
-    private String dataHora;
-    private Float valor;
-    private Integer idviagem;
+    public ItemDespesa(Integer _id, Integer categoria, String dataHora, String descricao,Integer idviagem, String moeda, Float valor, int icon) {
+        this._id = _id;
+        this.categoria = categoria;
+        this.dataHora = dataHora;
+        this.descricao = descricao;
+        this.icon = icon;
+        this.idviagem = idviagem;
+        this.moeda = moeda;
+        this.valor = valor;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
+    }
 
     public Integer get_id() {
         return _id;
@@ -50,11 +69,11 @@ public class ItemDespesa {
         this.descricao = descricao;
     }
 
-    public String getCategoria() {
+    public Integer getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Integer categoria) {
         this.categoria = categoria;
     }
 

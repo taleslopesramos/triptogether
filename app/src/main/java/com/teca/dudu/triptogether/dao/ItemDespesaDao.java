@@ -39,7 +39,7 @@ public class ItemDespesaDao {
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.ItemDespesa._ID)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.ItemDespesa.MOEDA)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.ItemDespesa.DESCRICAO)),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ItemDespesa.CATEGORIA)),
+                cursor.getInt(cursor.getColumnIndex(DataBaseHelper.ItemDespesa.CATEGORIA)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.ItemDespesa.DATA_HORA)),
                 cursor.getFloat(cursor.getColumnIndex(DataBaseHelper.ItemDespesa.VALOR)),
                 cursor.getInt(cursor.getColumnIndex(DataBaseHelper.ItemDespesa.ID_VIAGEM))

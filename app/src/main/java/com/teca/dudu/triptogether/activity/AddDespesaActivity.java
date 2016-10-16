@@ -4,19 +4,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teca.dudu.triptogether.R;
+import com.teca.dudu.triptogether.util.Categoria;
+import com.teca.dudu.triptogether.adapter.CategoriasAdapter;
 import com.teca.dudu.triptogether.adapter.QuemUsouAdapter;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
@@ -25,22 +27,24 @@ import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.Despesa;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.model.Usuario;
+import com.teca.dudu.triptogether.util.InicializaCategorias;
 
 import java.util.ArrayList;
+
+import static java.security.AccessController.getContext;
 
 public class AddDespesaActivity extends AppCompatActivity {
     ItemDespesaDao novaDespesa;
 
     TextView descTV, valorTV;
-    Button addDespesaBtn, quemUsouBtn, quemPagouBtn;
-    Spinner categoriasSpinner;
+    Button addDespesaBtn, quemUsouBtn, categoriasBtn;
     ListView listViewQuemUsou;
 
     ArrayList<Usuario> usuarios;
     UsuarioDao usuarioDao;
     UsuarioViagemDao usuarioViagemDao;
     ArrayList<UsuarioPagante> usuariosPagantes;
-    int id_usuario,id_viagem;
+    int id_usuario,id_viagem, numCategoria;
 
     int[] ids_usuarios;
     boolean[] checkUsuarios;
@@ -76,21 +80,38 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         descTV = (TextView)findViewById(R.id.desc_text);
         valorTV = (TextView)findViewById(R.id.valor_text);
-        categoriasSpinner = (Spinner) findViewById(R.id.categorias_spinner);
+        categoriasBtn =  (Button) findViewById(R.id.categorias_btn);
+
         addDespesaBtn = (Button) findViewById(R.id.add_despesa_btn);
         quemUsouBtn = (Button) findViewById(R.id.quemusou_btn);
 
         listViewQuemUsou = (ListView) findViewById(R.id.listview_quemusou);
         // if(!visible)//nao mostra list view
         //listViewQuemUsou.setVisibility(View.INVISIBLE);
+        final ArrayList<Categoria> categorias = new InicializaCategorias().getCategorias();
+        categoriasBtn.setText((CharSequence) categorias.get(0).getNomeCategoria());
+
+        categoriasBtn.setCompoundDrawablesWithIntrinsicBounds(categorias.get(0).getIconeCategoria(), 0, 0, 0);
+        final CategoriasAdapter adapter = new CategoriasAdapter(this, categorias);
 
 
-        ArrayAdapter<String> adapterCategorias = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        adapterCategorias.add("alimentacao");
-        adapterCategorias.add("transporte");
-        adapterCategorias.add("entretenimento");
-        adapterCategorias.add("Goró");
-        categoriasSpinner.setAdapter(adapterCategorias);
+        categoriasBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder categoriasDialog = new AlertDialog.Builder(v.getContext())
+                        .setTitle("Categorias");
+                categoriasDialog.setAdapter(adapter, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        categoriasBtn.setText(categorias.get(which).getNomeCategoria());
+                        numCategoria = categorias.get(which).getNumCategoria();
+                        categoriasBtn.setCompoundDrawablesWithIntrinsicBounds(categorias.get(which).getIconeCategoria(), 0, 0, 0);
+                    }
+                });
+                categoriasDialog.show();
+            }
+        });
 
         addDespesaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +122,7 @@ public class AddDespesaActivity extends AppCompatActivity {
 
                 if(descTV.getText() != null && valorTV != null) {//checa se os campos nao estao em branco
                     //add item despesa a tabela
-                    ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), categoriasSpinner.getSelectedItem().toString()
+                    ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), numCategoria
                             , null, valor, id_viagem);
 
                     int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);

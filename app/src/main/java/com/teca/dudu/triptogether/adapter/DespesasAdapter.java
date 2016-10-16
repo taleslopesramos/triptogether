@@ -12,6 +12,8 @@ import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.model.Despesa;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.teste.UsuarioTeste;
+import com.teca.dudu.triptogether.util.Categoria;
+import com.teca.dudu.triptogether.util.InicializaCategorias;
 
 import java.util.ArrayList;
 
@@ -30,20 +32,23 @@ public class DespesasAdapter extends ArrayAdapter<ItemDespesa>{
         if(listViewItem == null)
             listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_item_despesa, parent, false);
 
+        ArrayList<Categoria> categorias= new InicializaCategorias().getCategorias();
         ItemDespesa currentDespesa = getItem(position);
+        Integer indiceCategoria = currentDespesa.getCategoria();
 
         TextView txtDesc = (TextView) listViewItem.findViewById(R.id.itemdespesa_desc);
         txtDesc.setText(currentDespesa.getDescricao());
 
+
         TextView txtCategoriaDespesa = (TextView) listViewItem.findViewById(R.id.itemdespesa_cat);
-        txtCategoriaDespesa.setText(currentDespesa.getCategoria());
+        txtCategoriaDespesa.setText(categorias.get(indiceCategoria-1).getNomeCategoria());
 
         TextView txtValor = (TextView)listViewItem.findViewById(R.id.itemdespesa_valor);
         txtValor.setText(currentDespesa.getValor().toString());
 
 
         ImageView imgDespesa = (ImageView) listViewItem.findViewById(R.id.itemdespesa_img);
-        imgDespesa.setImageResource(android.R.drawable.ic_lock_silent_mode);
+        imgDespesa.setImageResource(categorias.get(indiceCategoria-1).getIconeCategoria());
 
         return listViewItem;
     }

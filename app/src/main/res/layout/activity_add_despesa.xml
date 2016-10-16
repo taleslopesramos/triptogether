@@ -34,19 +34,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Spinner
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/categorias_spinner"
-                    android:layout_weight="0.45" />
+                <Button
+                    android:text="Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/categorias_btn"
+                    android:drawableLeft="@mipmap/ic_diversos72"
+                    android:background="@android:color/transparent"
+                    android:gravity="center|left"
+                    android:layout_weight="0.27" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
                     android:id="@+id/valor_text"
                     android:layout_weight="0.45"
                     android:layout_marginTop="20dp"
-                    android:text="$$$" />
+                    android:text="" />
 
 
 
@@ -62,15 +67,9 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/quemPagou"
-                    android:id="@+id/quempagou_btn"
-                    android:layout_marginLeft="60dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/quemUsou"
                     android:id="@+id/quemusou_btn"
+                    android:gravity="center"
                     android:layout_marginLeft="50dp" />
 
             </LinearLayout>

@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add"
-        app:backgroundTint="?attr/actionModeSplitBackground"
-        app:rippleColor="?attr/colorButtonNormal" />
+        app:backgroundTint="@color/colorAccent"
+        app:rippleColor="?attr/colorButtonNormal"
+        app:srcCompat="@drawable/ic_plus" />
 
 </android.support.design.widget.CoordinatorLayout>

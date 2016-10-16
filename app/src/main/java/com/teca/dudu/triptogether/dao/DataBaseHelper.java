@@ -35,7 +35,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             "\"ID_Viagem\" INTEGER(1)," +
             "\"Moeda\" TEXT(15) NOT NULL," +
             "\"Descricao\" TEXT(15)," +
-            "\"Categoria\" TEXT(15) NOT NULL," +
+            "\"Categoria\" INTEGER(1)," +
             "\"DataHora\" datetime default CURRENT_TIMESTAMP," +
             "\"Valor\" REAL(1) NOT NULL," +
             "PRIMARY KEY (\"_id\") ," +
