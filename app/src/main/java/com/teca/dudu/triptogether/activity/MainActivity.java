@@ -76,11 +76,12 @@ public class MainActivity extends AppCompatActivity
 
         ImageView imgPerfil = (ImageView) hView.findViewById(R.id.nav_d_image_view); //BUSCA NA VIEW DO NAV_DRAWER A IMAGEM
         Usuario user = usuarioDao.buscarUsuarioPorId(id_usuario);
+        if(user.getImgPerfil() != null) {
+            Bitmap img = BitmapFactory.decodeByteArray(user.getImgPerfil(), 0, user.getImgPerfil().length); //Transforma o byteArray em bitmap
 
-        Bitmap img = BitmapFactory.decodeByteArray(user.getImgPerfil(), 0, user.getImgPerfil().length); //Transforma o byteArray em bitmap
-
-        if(img != null && imgPerfil != null) { // se nenhum deles for nulo mostra no nav_drawer
-            imgPerfil.setImageBitmap(img);
+            if (img != null && imgPerfil != null) { // se nenhum deles for nulo mostra no nav_drawer
+                imgPerfil.setImageBitmap(img);
+            }
         }
     }
 

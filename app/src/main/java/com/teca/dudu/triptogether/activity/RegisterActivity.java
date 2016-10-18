@@ -35,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity{
     EditText nome,nick,email,senha;
     ImageView imageView;
     Bitmap bmp;
+    byte[] array;
     private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
@@ -68,12 +69,6 @@ public class RegisterActivity extends AppCompatActivity{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
-
-                byte[] array = stream.toByteArray();
-
                 long id_usuario = usuarioDao.salvarUsuario(new Usuario(null, nome.getText().toString(),
                         nick.getText().toString(), email.getText().toString(),
                         senha.getText().toString(),array));
@@ -114,12 +109,18 @@ public class RegisterActivity extends AppCompatActivity{
             bmp = null;
             try {
                 bmp = getBitmapFromUri(selectedImage);
-                imageView.setImageBitmap(bmp);
+
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+            if(bmp!=null) {
+                imageView.setImageBitmap(bmp);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
 
+                array = stream.toByteArray();
+            }
         }
     }
 
