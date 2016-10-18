@@ -15,10 +15,7 @@ import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.activity.AddIntegranteActivity;
 import com.teca.dudu.triptogether.adapter.UsuariosAdapter;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
-import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.Usuario;
-import com.teca.dudu.triptogether.teste.UsuarioTeste;
-import com.teca.dudu.triptogether.teste.ViagemTeste;
 
 import java.util.ArrayList;
 
@@ -65,6 +62,9 @@ public class UsuariosFragment extends Fragment {
                 listUsuarios.setAdapter(adapter);
             }
         }
+
+
+
         FloatingActionButton fbaddUsuario = (FloatingActionButton) rootView.findViewById(R.id.fabadd_usuario);
 
         fbaddUsuario.setOnClickListener(new View.OnClickListener() {

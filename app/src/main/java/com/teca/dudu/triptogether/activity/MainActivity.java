@@ -3,40 +3,40 @@ package com.teca.dudu.triptogether.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.teca.dudu.triptogether.R;
-import com.teca.dudu.triptogether.layout.ViagemFragment;
+import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.layout.DespesasFragment;
 import com.teca.dudu.triptogether.layout.UsuariosFragment;
-import com.teca.dudu.triptogether.teste.UsuarioTeste;
+import com.teca.dudu.triptogether.layout.ViagemFragment;
+import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.teste.ViagemTeste;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     private ViagemTeste viagem;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
-
+    UsuarioDao usuarioDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +66,22 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View hView =  navigationView.getHeaderView(0); //PEGA A VIEW NO NAV_DRAWER
 
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.ID_file_key),Context.MODE_PRIVATE);
+        int id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
 
+        usuarioDao = new UsuarioDao(this);
+
+        ImageView imgPerfil = (ImageView) hView.findViewById(R.id.nav_d_image_view); //BUSCA NA VIEW DO NAV_DRAWER A IMAGEM
+        Usuario user = usuarioDao.buscarUsuarioPorId(id_usuario);
+
+        Bitmap img = BitmapFactory.decodeByteArray(user.getImgPerfil(), 0, user.getImgPerfil().length); //Transforma o byteArray em bitmap
+
+        if(img != null && imgPerfil != null) { // se nenhum deles for nulo mostra no nav_drawer
+            imgPerfil.setImageBitmap(img);
+        }
     }
 
 

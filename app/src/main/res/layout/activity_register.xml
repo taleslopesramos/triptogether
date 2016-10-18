@@ -93,6 +93,13 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TextViewImage"
+                android:text="ADD IMAGEM"
+                />
+
             <Button
                 android:id="@+id/email_register_button"
                 style="?android:textAppearanceSmall"
@@ -103,6 +110,12 @@
                 android:textStyle="bold"
                 />
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ImageViewId"
+                android:contentDescription="Imagem de Perfil"
+                />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

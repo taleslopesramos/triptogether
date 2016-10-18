@@ -1,14 +1,5 @@
 package com.teca.dudu.triptogether.model;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-
-
-
-import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
-
 /**
  * Created by tales on 28/08/16.
  */
@@ -20,7 +11,7 @@ public class Usuario {
     private String senha;
     private byte[] imgPerfil;
 
-    public Usuario(){};
+    public Usuario(){}
 
     public Usuario(Integer _id,  String nome, String nickname, String email, String senha) {
         this._id = _id;
@@ -30,16 +21,13 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Usuario(Integer _id, String nome, String nickname, String email, String senha,Blob imgPerfil) throws SQLException {
+    public Usuario(Integer _id, String nome, String nickname, String email, String senha, byte[] imgPerfil){
         this._id = _id;
         this.nome = nome;
         this.nickname = nickname;
         this.email = email;
-
         this.senha = senha;
-        int blobLength = (int) imgPerfil.length();
-        this.imgPerfil = imgPerfil.getBytes(1,blobLength);
-        imgPerfil.free();
+        this.imgPerfil = imgPerfil;
     }
 
     public Integer get_id() {
@@ -86,9 +74,7 @@ public class Usuario {
         return imgPerfil;
     }
 
-    public void setImgPerfil(Blob imgPerfil) throws SQLException {
-        int blobLength = (int) imgPerfil.length();
-        this.imgPerfil = imgPerfil.getBytes(1,blobLength);
-        imgPerfil.free();
+    public void setImgPerfil(byte[] imgPerfil) {
+        this.imgPerfil = imgPerfil;
     }
 }

@@ -31,7 +31,9 @@ Thumbs.db
 .idea/workspace.xml 
 build/
 build/intermediates
+build/intermediates/dex-cache/cache.xml
 build/generated/dex-cache
+build.gradle
 
 #NDK
 obj/

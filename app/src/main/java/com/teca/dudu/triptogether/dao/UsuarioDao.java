@@ -7,9 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.teca.dudu.triptogether.model.Usuario;
 
-import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -44,7 +42,8 @@ public class UsuarioDao {
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.NOME)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.NICKNAME)),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.EMAIL)),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.SENHA))
+                cursor.getString(cursor.getColumnIndex(DataBaseHelper.Usuario.SENHA)),
+                cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.Usuario.IMG_PERFIL))
         );
 
         return model;
@@ -66,7 +65,7 @@ public class UsuarioDao {
     public ArrayList<Usuario> listaUsuariosDeUmaViagem(int id_viagem){
         Cursor cursor = getDatabase().rawQuery(
                 "select Usuario._id as _id,Usuario.nome as nome,Usuario.nickname as nickname," +
-                "Usuario.email as email,Usuario.senha as senha " +
+                "Usuario.email as email,Usuario.senha as senha, Usuario.ImgPerfil as ImgPerfil " +
                 "from Usuario join UsuarioViagem on Usuario._id = UsuarioViagem.ID_Usuario " +
                 "where UsuarioViagem.ID_Viagem = ?",// 3 joins
                 new String[]{Integer.toString(id_viagem)});
@@ -98,6 +97,15 @@ public class UsuarioDao {
         valores.put(DataBaseHelper.Usuario.NICKNAME,usuario.getNickname());
         valores.put(DataBaseHelper.Usuario.EMAIL,usuario.getEmail());
         valores.put(DataBaseHelper.Usuario.SENHA,usuario.getSenha());
+       /* int bytes = usuario.getImgPerfil().getByteCount();
+        //or we can calculate bytes this way. Use a different value than 4 if you don't use 32bit images.
+        //int bytes = b.getWidth()*b.getHeight()*4;
+
+        ByteBuffer buffer = ByteBuffer.allocate(bytes); //Create a new buffer
+        usuario.getImgPerfil().copyPixelsToBuffer(buffer); //Move the byte data to the buffer
+
+        byte[] array = buffer.array();*/
+
         valores.put(DataBaseHelper.Usuario.IMG_PERFIL,usuario.getImgPerfil());
 
         if(usuario.get_id() != null){
