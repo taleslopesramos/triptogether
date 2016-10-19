@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
-import com.teca.dudu.triptogether.adapter.UsuariosAdapter;
 import com.teca.dudu.triptogether.adapter.ViagensAdapter;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.dao.ViagemDao;
-import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.model.UsuarioViagem;
 import com.teca.dudu.triptogether.model.Viagem;
 
@@ -51,11 +46,18 @@ public class CriaViagemActivity extends AppCompatActivity {
         }
         */
 
+        if(id_usuario != -1) {
+            ArrayList<Viagem> viagens = new ArrayList<Viagem>();
+            viagemDao = new ViagemDao(this);
+            viagens = viagemDao.listaViagensDeUmUsuario(id_usuario);
 
-        ListView listViagens = (ListView) findViewById(R.id.list_usuarios_cviagem);
-        viagens = viagemDao.listaViagensDeUmUsuario(id_usuario);
-        ViagensAdapter adapter = new ViagensAdapter(this, viagens);
-        listViagens.setAdapter(adapter);
+            ListView listViagens = (ListView) findViewById(R.id.list_usuarios_cviagem);
+            if (viagens.size() >= 1) {
+                ViagensAdapter adapter = new ViagensAdapter(this, viagens);
+                listViagens.setAdapter(adapter);
+            }
+        }
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_usuario_viagem);
@@ -72,6 +74,8 @@ public class CriaViagemActivity extends AppCompatActivity {
                 Button confirmButton = (Button) viagemDialog.findViewById(R.id.dialog_btn);
                 confirmButton.setText("CONFIRMAR");
                 viagemDialog.show();
+
+
                 confirmButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -84,7 +88,7 @@ public class CriaViagemActivity extends AppCompatActivity {
                                 getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
 
                         SharedPreferences.Editor spEditor = sharedPref.edit();
-                        spEditor.putInt(getString(R.string.ID_VIAGEM_file_key), (int)id_viagem);//salva a id_viagem ativa do usuario logado
+                        spEditor.putInt(getString(R.string.ID_VIAGEM_file_key), id_viagem);//salva a id_viagem ativa do usuario logado
                         spEditor.apply();
 
                         Intent intent = new Intent(CriaViagemActivity.this, AddIntegranteActivity.class);

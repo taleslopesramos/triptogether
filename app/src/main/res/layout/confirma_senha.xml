@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Nome viagem"
+        android:text="Digite sua senha antiga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/dialogtext_nome" />
+        android:id="@+id/dialogtext_senha1" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Name"
+        android:inputType="textPassword"
+        android:hint="password"
         android:ems="10"
         android:layout_marginTop="10dp"
-        android:id="@+id/dialogedit_nome" />
+        android:id="@+id/dialogedit_senha1" />
 
     <TextView
-        android:text="Local viagem"
+        android:text="Redigite sua senha antiga"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:id="@+id/dialogtext_local" />
+        android:id="@+id/dialogtext_senha2" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:inputType="textPersonName"
-        android:hint="Local"
+        android:inputType="textPassword"
+        android:hint="password"
         android:ems="10"
-        android:id="@+id/dialogedit_local" />
+        android:id="@+id/dialogedit_senha2" />
 
     <Button
-        android:text="Button"
+        android:text="OK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

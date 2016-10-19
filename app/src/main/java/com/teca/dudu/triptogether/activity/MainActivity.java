@@ -136,8 +136,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_add_integrante) {
             Intent intent = new Intent(this, AddIntegranteActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_lista_viagens) {
-            Intent intent = new Intent(this, ListaViagensActivity.class);
+        } else if (id == R.id.nav_perfil) {
+            Intent intent = new Intent(this, PerfilActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_exit) {
             SharedPreferences sharedPref = getSharedPreferences(
