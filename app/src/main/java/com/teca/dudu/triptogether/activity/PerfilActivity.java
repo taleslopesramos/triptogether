@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -91,22 +90,22 @@ public class PerfilActivity extends AppCompatActivity {
                         user.setSenha(senhaEdt.getText().toString());
                         user.setImgPerfil(array);
                         if(usuarioDao.salvarUsuario(user)!=-1){
-                            Snackbar.make(v, "Perfil do Usuario Modificado!", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            //Snackbar.make(v, "Perfil do Usuario Modificado!", Snackbar.LENGTH_LONG)
+                             //       .setAction("Action", null).show();
                         }
                         else {
-                            Snackbar.make(v, "Erro ao Modificar o Perfil!", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            //Snackbar.make(v, "Erro ao Modificar o Perfil!", Snackbar.LENGTH_LONG)
+                             //       .setAction("Action", null).show();
                         }
                     }
                     else {
-                        Snackbar.make(v, "Senha errada!", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                       // Snackbar.make(v, "Senha errada!", Snackbar.LENGTH_LONG)
+                        //        .setAction("Action", null).show();
                     }
                 }
                 else{
-                    Snackbar.make(v, "Senhas Diferentes!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    //Snackbar.make(v, "Senhas Diferentes!", Snackbar.LENGTH_LONG)
+                      //      .setAction("Action", null).show();
 
                 }
                 user = usuarioDao.buscarUsuarioPorId(id_usuario);

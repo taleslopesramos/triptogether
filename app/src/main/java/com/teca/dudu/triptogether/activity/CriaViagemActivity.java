@@ -2,12 +2,15 @@ package com.teca.dudu.triptogether.activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -29,6 +32,7 @@ public class CriaViagemActivity extends AppCompatActivity {
     ViagemDao viagemDao;
     UsuarioViagemDao usuarioViagemDao;
     ArrayList<Viagem> viagens;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +59,31 @@ public class CriaViagemActivity extends AppCompatActivity {
             if (viagens.size() >= 1) {
                 ViagensAdapter adapter = new ViagensAdapter(this, viagens);
                 listViagens.setAdapter(adapter);
+
+                listViagens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        final Viagem viagemSelecionada = (Viagem)adapterView.getItemAtPosition(i);
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(CriaViagemActivity.this)
+                                .setTitle("Selecione uma opção")
+                                .setNegativeButton("Apagar", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        usuarioViagemDao.removerUsuarioViagem(id_usuario,viagemSelecionada.get_id());
+                                    }
+                                })
+                                .setPositiveButton("Tornar viagem ativa", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        usuarioViagemDao.updateViagemAtiva(id_usuario,viagemSelecionada.get_id());
+                                        recreate();
+                                    }
+                                });
+                        dialog.show();
+                    }
+                });
+
             }
         }
 
@@ -100,5 +129,6 @@ public class CriaViagemActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

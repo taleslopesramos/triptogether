@@ -5,12 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.model.UsuarioViagem;
-import com.teca.dudu.triptogether.model.Viagem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tales on 05/10/16.
@@ -124,4 +121,15 @@ public class UsuarioViagemDao {
         return user.getId_viagem();
     }
 
+    public void updateViagemAtiva(int id_viagem,int id_usuario) {
+        UsuarioViagem user = buscarUsuarioViagemAtivaPorId(id_usuario);
+
+        if(user != null) {
+            user.setEstaAtiva(false);
+            salvarUsuarioViagem(user);
+        }
+
+        user = new UsuarioViagem(id_usuario,id_viagem,true);
+        salvarUsuarioViagem(user);
+    }
 }
