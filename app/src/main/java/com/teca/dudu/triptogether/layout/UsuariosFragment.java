@@ -63,7 +63,7 @@ public class UsuariosFragment extends Fragment {
             }
         }
 
-
+        usuarioDao.close();
 
         FloatingActionButton fbaddUsuario = (FloatingActionButton) rootView.findViewById(R.id.fabadd_usuario);
 

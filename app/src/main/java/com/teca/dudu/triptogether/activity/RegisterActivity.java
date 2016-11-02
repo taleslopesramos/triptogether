@@ -1,8 +1,6 @@
 package com.teca.dudu.triptogether.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +9,7 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,13 +34,16 @@ public class RegisterActivity extends AppCompatActivity{
     EditText nome,nick,email,senha;
     ImageView imageView;
     Bitmap bmp;
-    byte[] array;
     private static int RESULT_LOAD_IMAGE = 1;
-
+    byte[] array;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         usuarioDao = new UsuarioDao(this);
         usuarioViagemDao = new UsuarioViagemDao(this);
         viagemDao = new ViagemDao(this);
@@ -73,21 +75,22 @@ public class RegisterActivity extends AppCompatActivity{
                         nick.getText().toString(), email.getText().toString(),
                         senha.getText().toString(),array));
 
-
-                SharedPreferences sharedPref = getSharedPreferences(
-                        getString(R.string.ID_file_key), Context.MODE_PRIVATE);
-
-                SharedPreferences.Editor spEditor = sharedPref.edit();
-                spEditor.putInt(getString(R.string.ID_file_key), (int)id_usuario);
-                spEditor.apply();
-
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        usuarioDao.close();
+        usuarioViagemDao.close();
+        viagemDao.close();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -109,13 +112,12 @@ public class RegisterActivity extends AppCompatActivity{
             bmp = null;
             try {
                 bmp = getBitmapFromUri(selectedImage);
-
+                imageView.setImageBitmap(bmp);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             if(bmp!=null) {
-                imageView.setImageBitmap(bmp);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bmp.compress(Bitmap.CompressFormat.PNG, 0, stream);
 
@@ -136,5 +138,12 @@ public class RegisterActivity extends AppCompatActivity{
 
     public void onClickReg(View v ){
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

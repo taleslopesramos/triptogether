@@ -14,14 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
-
-import com.teca.dudu.triptogether.activity.LoginActivity;
-import com.teca.dudu.triptogether.dao.ItemDespesaDao;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.dao.ViagemDao;
-import com.teca.dudu.triptogether.model.CurrentUsuario;
-import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.model.Viagem;
 import com.teca.dudu.triptogether.util.DividasSolucao;
@@ -61,9 +56,12 @@ public class ViagemFragment extends Fragment {
 
         //pega o ID do usuario logado
         SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.ID_file_key),Context.MODE_PRIVATE);
-        id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
         UsuarioViagemDao usuarioViagemDao = new UsuarioViagemDao(rootView.getContext());
-        id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
+        id_usuario = sharedPref.getInt(getString(R.string.ID_file_key),-1);
+
+        sharedPref = getActivity().getSharedPreferences(
+                getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
+        id_viagem = sharedPref.getInt(getString(R.string.ID_VIAGEM_file_key),-1);
 
         if(id_viagem != -1) {
             ViagemDao viagemDao = new ViagemDao(rootView.getContext());
@@ -80,6 +78,7 @@ public class ViagemFragment extends Fragment {
             UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
             usuarios = new ArrayList<Usuario>();
             usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
+            usuarioDao.close();
 
             sugestaoViagemBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,7 +90,7 @@ public class ViagemFragment extends Fragment {
                             .setTitle("Sugestão")
                             //.setMessage("(teste)"+ sugestoes.get(0))
                             .setAdapter(adapter, null)
-                            .setPositiveButton("TOP DMS", null);
+                            .setPositiveButton("OK", null);
                     dialog.show();
                 }
             });

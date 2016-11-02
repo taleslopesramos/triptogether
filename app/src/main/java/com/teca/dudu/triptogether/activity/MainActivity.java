@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
@@ -29,6 +30,8 @@ import com.teca.dudu.triptogether.layout.UsuariosFragment;
 import com.teca.dudu.triptogether.layout.ViagemFragment;
 import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.teste.ViagemTeste;
+import com.teca.dudu.triptogether.util.CircleBitmap;
+import com.teca.dudu.triptogether.util.RoundImage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -75,12 +78,20 @@ public class MainActivity extends AppCompatActivity
         usuarioDao = new UsuarioDao(this);
 
         ImageView imgPerfil = (ImageView) hView.findViewById(R.id.nav_d_image_view); //BUSCA NA VIEW DO NAV_DRAWER A IMAGEM
+        TextView nomePerfil = (TextView) hView.findViewById(R.id.nav_name_tv);
+        TextView emailPerfil = (TextView) hView.findViewById(R.id.nav_email_tv);
+
         Usuario user = usuarioDao.buscarUsuarioPorId(id_usuario);
+
+        usuarioDao.close();
+        nomePerfil.setText(user.getNome());
+        emailPerfil.setText(user.getEmail());
         if(user.getImgPerfil() != null) {
             Bitmap img = BitmapFactory.decodeByteArray(user.getImgPerfil(), 0, user.getImgPerfil().length); //Transforma o byteArray em bitmap
-
+            CircleBitmap circle = new CircleBitmap();
+            RoundImage round = new RoundImage(img);
             if (img != null && imgPerfil != null) { // se nenhum deles for nulo mostra no nav_drawer
-                imgPerfil.setImageBitmap(img);
+                imgPerfil.setImageBitmap(circle.getRoundedShape(img));
             }
         }
     }
@@ -130,13 +141,19 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, AddDespesaActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_cria_viagem) {
-            Intent intent = new Intent(this, CriaViagemActivity.class);
-            startActivity(intent);
+        } else if (id == R.id.nav_home) {
+            if(MainActivity.class != this.getClass()) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_add_integrante) {
             Intent intent = new Intent(this, AddIntegranteActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_perfil) {
+        }
+        else if(id == R.id.nav_lista_viagens){
+            Intent  intent = new Intent(this, ViagemActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_perfil) {
             Intent intent = new Intent(this, PerfilActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_exit) {
@@ -146,11 +163,6 @@ public class MainActivity extends AppCompatActivity
             spEditor.clear();
             spEditor.apply();
 
-            sharedPref = getSharedPreferences(
-                    getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
-            spEditor = sharedPref.edit();
-            spEditor.clear();
-            spEditor.apply();
 
             Intent intentmain = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(intentmain);

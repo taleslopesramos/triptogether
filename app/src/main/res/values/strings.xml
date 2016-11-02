@@ -25,4 +25,5 @@
     <string name="title_activity_add_integrante">AddIntegranteActivity</string>
     <string name="prompt_integrante">Email do Integrante</string>
     <string name="ID_VIAGEM_file_key">com.teca.triptogether.idviagem</string>
+    <string name="valorPT">valor</string>
 </resources>

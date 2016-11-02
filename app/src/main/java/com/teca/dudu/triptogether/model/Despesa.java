@@ -10,7 +10,7 @@ public class Despesa {
     private Integer id_usuario;
     private Integer id_viagem;
 
-    public Despesa(){};
+    public Despesa(){}
 
     public Despesa(Float valordevido, Float valorpago, Integer id_itemdespesa, Integer idusuario, Integer idviagem) {
         this.valordevido = valordevido;

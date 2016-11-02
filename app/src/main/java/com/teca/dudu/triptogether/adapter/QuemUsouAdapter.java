@@ -1,8 +1,8 @@
 package com.teca.dudu.triptogether.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.model.Usuario;
+import com.teca.dudu.triptogether.util.CircleBitmap;
 
 import java.util.ArrayList;
 
@@ -42,9 +43,17 @@ public class QuemUsouAdapter extends ArrayAdapter<Usuario>{
         //TO DO
         //Imagem do usuario
 
-        ImageView imgUsuario = (ImageView) listViewItem.findViewById(R.id.itemquemusou_img);
 
-        imgUsuario.setImageResource(R.drawable.ic_menu_gallery);
+        ImageView imgUsuario = (ImageView) listViewItem.findViewById(R.id.itemquemusou_img);
+        if(currentUsuario.getImgPerfil() != null) {
+            Bitmap img = BitmapFactory.decodeByteArray(currentUsuario.getImgPerfil(), 0, currentUsuario.getImgPerfil().length); //Transforma o byteArray em bitmap
+            CircleBitmap circle = new CircleBitmap();
+            if (img != null && imgUsuario != null) { // se nenhum deles for nulo mostra no nav_drawer
+                imgUsuario.setImageBitmap(circle.getRoundedShape(img));
+            }
+        }
+
+
 
         EditText editText = (EditText) listViewItem.findViewById(R.id.itemquemusou_edittxt);
 

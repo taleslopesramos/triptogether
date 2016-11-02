@@ -11,7 +11,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.model.Usuario;
+import com.teca.dudu.triptogether.util.CircleBitmap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
@@ -40,6 +43,9 @@ public class PerfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         editando = false;
         imgPerfil = (ImageView) findViewById(R.id.imgPerfil);
         nomeEdt = (EditText) findViewById(R.id.nome_tv);
@@ -60,9 +66,9 @@ public class PerfilActivity extends AppCompatActivity {
         senhaEdt.setText("******");
         if(user.getImgPerfil() != null) {
             bmp = BitmapFactory.decodeByteArray(user.getImgPerfil(), 0, user.getImgPerfil().length); //Transforma o byteArray em bitmap
-
+            CircleBitmap circle = new CircleBitmap();
             if (bmp != null && imgPerfil != null) {
-                imgPerfil.setImageBitmap(bmp);
+                imgPerfil.setImageBitmap(circle.getRoundedShape(bmp));
             }
         }
     }
@@ -70,7 +76,7 @@ public class PerfilActivity extends AppCompatActivity {
     public void mudaPerfil(View view){
         final Dialog viagemDialog = new Dialog(this);
         viagemDialog.setTitle("Confirmando Mudança");
-        viagemDialog.setContentView(R.layout.confirma_senha);
+        viagemDialog.setContentView(R.layout.dialog_confirmasenha);
         Button confirmButton = (Button) viagemDialog.findViewById(R.id.dialog_btn);
         viagemDialog.show();
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -90,22 +96,22 @@ public class PerfilActivity extends AppCompatActivity {
                         user.setSenha(senhaEdt.getText().toString());
                         user.setImgPerfil(array);
                         if(usuarioDao.salvarUsuario(user)!=-1){
-                            //Snackbar.make(v, "Perfil do Usuario Modificado!", Snackbar.LENGTH_LONG)
-                             //       .setAction("Action", null).show();
+                            Snackbar.make(v, "Perfil do Usuario Modificado!", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
                         else {
-                            //Snackbar.make(v, "Erro ao Modificar o Perfil!", Snackbar.LENGTH_LONG)
-                             //       .setAction("Action", null).show();
+                            Snackbar.make(v, "Erro ao Modificar o Perfil!", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
                     }
                     else {
-                       // Snackbar.make(v, "Senha errada!", Snackbar.LENGTH_LONG)
-                        //        .setAction("Action", null).show();
+                        Snackbar.make(v, "Senha errada!", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
                     }
                 }
                 else{
-                    //Snackbar.make(v, "Senhas Diferentes!", Snackbar.LENGTH_LONG)
-                      //      .setAction("Action", null).show();
+                    Snackbar.make(v, "Senhas Diferentes!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
 
                 }
                 user = usuarioDao.buscarUsuarioPorId(id_usuario);
@@ -173,6 +179,12 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        usuarioDao.close();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -216,5 +228,13 @@ public class PerfilActivity extends AppCompatActivity {
         parcelFileDescriptor.close();
 
         return image;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

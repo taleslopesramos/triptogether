@@ -4,20 +4,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teca.dudu.triptogether.R;
-import com.teca.dudu.triptogether.util.Categoria;
 import com.teca.dudu.triptogether.adapter.CategoriasAdapter;
 import com.teca.dudu.triptogether.adapter.QuemUsouAdapter;
 import com.teca.dudu.triptogether.dao.DespesaDao;
@@ -27,20 +26,19 @@ import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.Despesa;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 import com.teca.dudu.triptogether.model.Usuario;
+import com.teca.dudu.triptogether.util.Categoria;
 import com.teca.dudu.triptogether.util.InicializaCategorias;
 
 import java.util.ArrayList;
 
-import static java.security.AccessController.getContext;
-
 public class AddDespesaActivity extends AppCompatActivity {
-    ItemDespesaDao novaDespesa;
-
     TextView descTV, valorTV;
-    Button addDespesaBtn, quemUsouBtn, categoriasBtn;
+    Button addDespesaBtn, quemUsouBtn, categoriasBtn, moedasBtn;
     ListView listViewQuemUsou;
-
+    String moeda;
     ArrayList<Usuario> usuarios;
+
+    ItemDespesaDao novaDespesa;
     UsuarioDao usuarioDao;
     UsuarioViagemDao usuarioViagemDao;
     ArrayList<UsuarioPagante> usuariosPagantes;
@@ -55,6 +53,10 @@ public class AddDespesaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_despesa);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Nova Despesa");
+
         usuariosPagantes = new ArrayList<UsuarioPagante>();
 
         usuarioDao = new UsuarioDao(this);
@@ -68,7 +70,10 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         if(id_usuario != -1){//pega a idviagem atual do usuario logado
             usuarioViagemDao = new UsuarioViagemDao(this);
-            id_viagem = usuarioViagemDao.buscarIdViagemAtiva(id_usuario);
+            sharedPref = getSharedPreferences(
+                    getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
+            id_viagem = sharedPref.getInt(getString(R.string.ID_VIAGEM_file_key),-1);
+
         }
 
         usuarios  = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
@@ -84,12 +89,38 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         addDespesaBtn = (Button) findViewById(R.id.add_despesa_btn);
         quemUsouBtn = (Button) findViewById(R.id.quemusou_btn);
+        moedasBtn = (Button) findViewById(R.id.moeda_btn);
+        moeda = "$";
+
 
         listViewQuemUsou = (ListView) findViewById(R.id.listview_quemusou);
-        // if(!visible)//nao mostra list view
-        //listViewQuemUsou.setVisibility(View.INVISIBLE);
+        final ArrayList<String > moedas = new ArrayList<String>();
+        moedas.add("$ - USD");
+        moedas.add("R$ - BRL");
+        moedas.add("£ - GBP");
+        moedas.add("$ - ARS");
+        moedasBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder moedasDialog = new AlertDialog.Builder(v.getContext())
+                        .setTitle("Moedas");
+                moedasDialog.setAdapter(new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, moedas), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        moeda = moedas.get(which).split(" ")[0];
+                        moedasBtn.setText(moeda);
+
+                    }
+                });
+                moedasDialog.show();
+
+            }
+        });
+
+
+
         final ArrayList<Categoria> categorias = new InicializaCategorias().getCategorias();
-        categoriasBtn.setText((CharSequence) categorias.get(0).getNomeCategoria());
+        categoriasBtn.setText(categorias.get(0).getNomeCategoria());
 
         categoriasBtn.setCompoundDrawablesWithIntrinsicBounds(categorias.get(0).getIconeCategoria(), 0, 0, 0);
         final CategoriasAdapter adapter = new CategoriasAdapter(this, categorias);
@@ -118,28 +149,34 @@ public class AddDespesaActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //cria o item da despesa em si com o valor e seus atributos e lança no bd pelo ItemDespesaDao
                 novaDespesa = new ItemDespesaDao(v.getContext());
-                Float valor = new Float(valorTV.getText().toString());
-
-                if(descTV.getText() != null && valorTV != null) {//checa se os campos nao estao em branco
+                String descricao = descTV.getText().toString();
+                String valorStr = valorTV.getText().toString();
+                if(!(descricao.matches("") || valorStr.matches(""))) {//checa se os campos nao estao em branco
                     //add item despesa a tabela
-                    ItemDespesa despesa = new ItemDespesa(null, "?", descTV.getText().toString(), numCategoria
-                            , null, valor, id_viagem);
-
-                    int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);
+                    Float valor = Float.valueOf(valorTV.getText().toString());
                     //cria a relacao de usuario com despesa na tabela DespesaDao
                     setValorPagoQuemUsou();
                     boolean camposValidosValorPago = validaCamposValorPagoQuemUsou();
                     if(camposValidosValorPago){
+
+                        ItemDespesa despesa = new ItemDespesa(null, moeda , descTV.getText().toString(), numCategoria
+                                , null, valor, id_viagem);
+                        int id_itemdespesa = (int) novaDespesa.salvarItemDespesa(despesa);
                         criaDespesaDao(id_itemdespesa, v);
+
+                        Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
+                        startActivity(intentmain);
+                        finish();
+                    } else {
+                        Toast.makeText(v.getContext(), "A soma dos campos dos integrantes deve ser igual ao valor da despesa",
+                                Toast.LENGTH_SHORT).show();
                     }
 
 
                 } else{
-                    Toast.makeText(v.getContext(), "Preencha os campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "Preencha os campos corretamente", Toast.LENGTH_SHORT).show();
                 }
 
-                Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
-                startActivity(intentmain);
             }
 
 
@@ -163,10 +200,7 @@ public class AddDespesaActivity extends AppCompatActivity {
 
                 }
                 Float valorTotal = new Float(valorTV.getText().toString());
-                if(acm == valorTotal)
-                    return  true;
-                else
-                    return false;
+                return acm == valorTotal;
             }
             //abre o DAO de despesa para inserir os valores pagos e devidos
             //de acordo com cada usuarioPagante
@@ -190,6 +224,9 @@ public class AddDespesaActivity extends AppCompatActivity {
                 createDialog("quem usou", v);
             }
         });
+
+
+
     }
 
 
@@ -199,7 +236,7 @@ public class AddDespesaActivity extends AppCompatActivity {
         CharSequence[] itens = new CharSequence[usuarios.size()];
         checkUsuarios = new boolean[usuarios.size()];
         for(int i =0;i<usuarios.size();i++){
-            itens[i] =(CharSequence) usuarios.get(i).getNome().toString();
+            itens[i] = usuarios.get(i).getNome().toString();
         }
 
         builder.setTitle(quem)
@@ -242,6 +279,22 @@ public class AddDespesaActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        usuarioViagemDao.close();
+        usuarioDao.close();
+        novaDespesa.close();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 class UsuarioPagante{

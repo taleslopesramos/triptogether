@@ -33,12 +33,13 @@
             android:name=".activity.AddDespesaActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.CriaViagemActivity" />
+        <activity android:name=".activity.ViagemActivity" />
         <activity
             android:name=".activity.AddIntegranteActivity"
             android:label="@string/title_activity_add_integrante"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.PerfilActivity"></activity>
+        <activity android:name=".activity.PerfilActivity" />
+        <activity android:name=".activity.DespesaActivity"></activity>
     </application>
 
 </manifest>

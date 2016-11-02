@@ -13,7 +13,7 @@ public class ItemDespesa {
     private Integer idviagem;
     private int icon;
 
-    public ItemDespesa(){};
+    public ItemDespesa(){}
 
     public ItemDespesa(Integer _id, String moeda, String descricao, Integer categoria,
                    String dataHora, Float valor, Integer idviagem) {

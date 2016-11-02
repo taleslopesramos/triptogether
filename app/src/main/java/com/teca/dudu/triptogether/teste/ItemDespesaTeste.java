@@ -1,7 +1,5 @@
 package com.teca.dudu.triptogether.teste;
 
-import com.teca.dudu.triptogether.model.Despesa;
-
 import java.util.ArrayList;
 
 /**

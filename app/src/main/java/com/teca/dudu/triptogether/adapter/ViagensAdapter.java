@@ -9,27 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.teca.dudu.triptogether.R;
-import com.teca.dudu.triptogether.model.Usuario;
-
-import java.util.ArrayList;
-
-
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.teca.dudu.triptogether.R;
-import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.model.Viagem;
-import com.teca.dudu.triptogether.teste.UsuarioTeste;
 
 import java.util.ArrayList;
 
@@ -58,11 +41,6 @@ public class ViagensAdapter extends ArrayAdapter<Viagem> {
         TextView txtLocalViagem = (TextView) listViewItem.findViewById(R.id.itemviagem_local);
 
         txtLocalViagem.setText(currentViagem.getLocal());
-
-        // TO DO
-        // quanto o usuário pagou ou deve
-        //TO DO
-        //Imagem do usuario
 
 
         return listViewItem;

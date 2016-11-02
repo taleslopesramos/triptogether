@@ -1,8 +1,5 @@
 package com.teca.dudu.triptogether.teste;
 
-import com.teca.dudu.triptogether.model.ItemDespesa;
-import com.teca.dudu.triptogether.model.Usuario;
-
 import java.util.ArrayList;
 
 /**

@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by tales on 28/08/16.
@@ -48,7 +47,7 @@ public class ItemDespesaDao {
         return model;
     }
 
-    public ArrayList<ItemDespesa> listaDespesa(){
+    public ArrayList<ItemDespesa> listaItemDespesa(){
         Cursor cursor = getDatabase().query(DataBaseHelper.ItemDespesa.TABELA,
                 DataBaseHelper.ItemDespesa.COLUNAS,null,null,null,null,null);
         ArrayList<ItemDespesa> itemDespesas = new ArrayList<ItemDespesa>();
@@ -105,7 +104,7 @@ public class ItemDespesaDao {
             cursor.close();
             return model;
         }
-
+        cursor.close();
         return null;
     }
 }

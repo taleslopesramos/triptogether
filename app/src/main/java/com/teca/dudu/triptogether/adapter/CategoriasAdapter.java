@@ -27,10 +27,7 @@ public class CategoriasAdapter extends ArrayAdapter<Categoria> {
     public View getView(int position, View convertView, ViewGroup parent) {
         boolean showSeparator = false;
 
-        if((position) == 0 || position == 4 || position == 9 )
-            showSeparator = true;
-        else
-            showSeparator = false;
+        showSeparator = (position) == 0 || position == 4 || position == 9;
         View listViewItem = convertView;
         if(listViewItem == null)
             listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_item_categorias, parent, false);

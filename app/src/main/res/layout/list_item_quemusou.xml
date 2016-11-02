@@ -11,6 +11,7 @@
         android:paddingTop="16dp"
         android:layout_width="@dimen/img_listusuario"
         android:layout_height="@dimen/img_listusuario"
+        android:adjustViewBounds="true"
         />
 
     <LinearLayout
@@ -18,11 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginBottom="10dp"
         android:paddingLeft="16dp">
 
         <TextView
             android:id="@+id/itemquemusou_nome"
-            android:layout_width="wrap_content"
+            android:layout_width="1in"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -35,13 +37,12 @@
     </LinearLayout>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="1in"
         android:layout_height="match_parent"
         android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/itemquemusou_edittxt"
         android:layout_weight="1"
-        android:gravity="center"
         android:paddingRight="10dp"
         />
 

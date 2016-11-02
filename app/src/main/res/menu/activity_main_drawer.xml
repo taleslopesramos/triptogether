@@ -3,32 +3,33 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_cria_viagem"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Criar Viagem" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_nav_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_lista_viagens"
+            android:icon="@drawable/ic_nav_viagens"
+            android:title="Viagens" />
         <item
             android:id="@+id/nav_add_integrante"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_nav_add_user"
             android:title="Adicionar Integrante" />
         <item
             android:id="@+id/nav_add_despesa"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_nav_add_despesa"
             android:title="Adicionar Despesa" />
-        <item
-            android:id="@+id/nav_perfil"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Perfil" />
+
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Perfil">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_perfil"
+                android:icon="@drawable/ic_nav_settings"
+                android:title="Configurações" />
             <item
                 android:id="@+id/nav_exit"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_nav_quit"
                 android:title="Sair" />
         </menu>
     </item>

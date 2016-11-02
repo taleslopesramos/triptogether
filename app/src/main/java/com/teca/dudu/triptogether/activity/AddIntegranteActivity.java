@@ -1,13 +1,16 @@
 package com.teca.dudu.triptogether.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.teca.dudu.triptogether.R;
@@ -15,8 +18,6 @@ import com.teca.dudu.triptogether.dao.UsuarioDao;
 import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
 import com.teca.dudu.triptogether.model.Usuario;
 import com.teca.dudu.triptogether.model.UsuarioViagem;
-
-import java.util.ArrayList;
 
 public class AddIntegranteActivity extends AppCompatActivity {
     String email;
@@ -29,10 +30,20 @@ public class AddIntegranteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_integrante);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Novo Integrante");
         usuarioDao = new UsuarioDao(this);
         usuarioViagemDao = new UsuarioViagemDao(this);
 
+        Button finalizarBtn = (Button) findViewById(R.id.finalizar_btn);
+        finalizarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddIntegranteActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         FloatingActionButton addIntegrantebtn = (FloatingActionButton) findViewById(R.id.add_integrante_btn);
         addIntegrantebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +73,15 @@ public class AddIntegranteActivity extends AppCompatActivity {
                 }
             }
         });
+        usuarioViagemDao.close();
+        usuarioDao.close();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.model.Usuario;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 

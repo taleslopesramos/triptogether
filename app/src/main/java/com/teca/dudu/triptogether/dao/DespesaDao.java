@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.teca.dudu.triptogether.model.Despesa;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -75,6 +74,21 @@ public class DespesaDao {
         cursor.close();
         return total;
     }
+    public float valorGastoUsuario(int id_usuario,int id_viagem){
+        float total = 0;
+        Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,DataBaseHelper.Despesa.COLUNAS,
+                "ID_Usuario = ? and ID_Viagem = ?",new String[]{Integer.toString(id_usuario),
+                        Integer.toString(id_viagem)},null,null,null);
+
+        while (cursor.moveToNext()){
+            Despesa model = criaDespesa(cursor);
+            total += model.getValorpago();
+        }
+
+        cursor.close();
+        return total;
+    }
+
 
     public ArrayList<Despesa> listaDespesasDeUmItem(int id_item,int id_viagem){
         Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,
@@ -107,14 +121,15 @@ public class DespesaDao {
         return getDatabase().insert(DataBaseHelper.Despesa.TABELA,null,valores);
     }
 
-    public boolean removerLancamento(int idDespesa,int idViagem,int idUsuario){
+    public boolean removerDespesa(int idDespesa,int idViagem,int idUsuario){
         return getDatabase().delete(DataBaseHelper.Despesa.TABELA,"_id = ?",
                 new String[]{Integer.toString(idViagem),Integer.toString(idDespesa),Integer.toString(idUsuario)}) > 0;
     }
 
-    public Despesa buscarDespesaPorId(int idDespesa,int idViagem,int idUsuario){
-        Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,DataBaseHelper.Despesa.COLUNAS, "_id = ?",
-                new String[]{Integer.toString(idDespesa),Integer.toString(idViagem),Integer.toString(idUsuario)},
+    public Despesa buscarDespesaPorId(int id_viagem,int id_item,int id_usuario){
+        Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,DataBaseHelper.Despesa.COLUNAS,
+                "ID_Viagem = ? and ID_ItemDespesa = ? and ID_Usuario = ?",
+                new String[]{Integer.toString(id_viagem),Integer.toString(id_item),Integer.toString(id_usuario)},
                 null,null,null);
         if (cursor.moveToNext()){
             Despesa model = criaDespesa(cursor);
@@ -122,6 +137,7 @@ public class DespesaDao {
             return model;
         }
 
+        cursor.close();
         return null;
     }
 }

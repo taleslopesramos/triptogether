@@ -11,18 +11,20 @@
         android:paddingTop="16dp"
         android:layout_width="@dimen/img_listusuario"
         android:layout_height="@dimen/img_listusuario"
+        android:layout_marginBottom="16dp"
         />
 
     <LinearLayout
         android:id="@+id/text_container"
-        android:layout_width="212dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingLeft="16dp">
 
         <TextView
             android:id="@+id/itemdespesa_desc"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="bottom"
@@ -33,7 +35,7 @@
 
         <TextView
             android:id="@+id/itemdespesa_cat"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="top"
@@ -43,10 +45,14 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:layout_marginRight="15dp"
+        android:layout_gravity="right"
         android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#004A00"
         android:id="@+id/itemdespesa_valor" />
 </LinearLayout>

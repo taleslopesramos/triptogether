@@ -42,7 +42,7 @@ public class DespesasAdapter extends ArrayAdapter<ItemDespesa>{
         txtCategoriaDespesa.setText(categorias.get(indiceCategoria).getNomeCategoria());
 
         TextView txtValor = (TextView)listViewItem.findViewById(R.id.itemdespesa_valor);
-        txtValor.setText(currentDespesa.getValor().toString());
+        txtValor.setText(currentDespesa.getMoeda() + currentDespesa.getValor().toString());
 
 
         ImageView imgDespesa = (ImageView) listViewItem.findViewById(R.id.itemdespesa_img);

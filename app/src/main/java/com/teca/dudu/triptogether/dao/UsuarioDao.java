@@ -62,6 +62,21 @@ public class UsuarioDao {
         return usuarios;
     }
 
+    public ArrayList<Usuario> listaUsuariosDeUmItem(int id_viagem, int id_itemDespesa){
+        Cursor cursor = getDatabase().rawQuery("SELECT _id,nome,ImgPerfil,nickname,email,senha " +
+                        "FROM Usuario JOIN Despesa on Usuario._id = Despesa.ID_Usuario " +
+                        "WHERE Despesa.ID_ItemDespesa = ? and Despesa.ID_Viagem = ?;",
+                new String[]{Integer.toString(id_itemDespesa),Integer.toString(id_viagem)});
+
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        while (cursor.moveToNext()){
+            Usuario model = criaUsuario(cursor);
+            usuarios.add(model);
+        }
+        cursor.close();
+        return usuarios;
+    }
+
     public ArrayList<Usuario> listaUsuariosDeUmaViagem(int id_viagem){
         Cursor cursor = getDatabase().rawQuery(
                 "select Usuario._id as _id,Usuario.nome as nome,Usuario.nickname as nickname," +

@@ -4,26 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.teca.dudu.triptogether.activity.AddDespesaActivity;
 import com.teca.dudu.triptogether.R;
+import com.teca.dudu.triptogether.activity.AddDespesaActivity;
+import com.teca.dudu.triptogether.activity.DespesaActivity;
 import com.teca.dudu.triptogether.adapter.DespesasAdapter;
-import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.dao.ItemDespesaDao;
-import com.teca.dudu.triptogether.dao.UsuarioDao;
-import com.teca.dudu.triptogether.dao.UsuarioViagemDao;
-import com.teca.dudu.triptogether.model.Despesa;
 import com.teca.dudu.triptogether.model.ItemDespesa;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class DespesasFragment extends Fragment {
@@ -57,18 +54,34 @@ public class DespesasFragment extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences(
                 getString(R.string.ID_VIAGEM_file_key), Context.MODE_PRIVATE);
 
-        int id_viagem = sharedPref.getInt(getString(R.string.ID_VIAGEM_file_key),-1);
+        final int id_viagem = sharedPref.getInt(getString(R.string.ID_VIAGEM_file_key),-1);
 
         //lista os itens despesas da viagem do usuario logado
         if(id_viagem !=-1) {
             listDespesas = (ListView)rootView.findViewById(R.id.list_despesas);
+            listDespesas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final ItemDespesa itemDespesaSelecionado = (ItemDespesa) adapterView.getItemAtPosition(i);
+
+                    Intent intent = new Intent(getContext(),DespesaActivity.class);
+                    intent.putExtra("id_item", itemDespesaSelecionado.get_id());
+                    intent.putExtra("id_viagem",id_viagem);
+                    intent.putExtra("categoria",itemDespesaSelecionado.getCategoria());
+                    intent.putExtra("descricao",itemDespesaSelecionado.getDescricao());
+                    intent.putExtra("valor",itemDespesaSelecionado.getValor());
+                    startActivity(intent);
+                }
+            });
 
             itemDespesaDao = new ItemDespesaDao(rootView.getContext());
             despesas = new ArrayList<ItemDespesa>();
 
             despesas = itemDespesaDao.listaItensDeUmaViagem(id_viagem);
+            itemDespesaDao.close();
 
             if (despesas.size() >= 1) {
+                Collections.reverse(despesas);//dar display nas despesas mais recenter primeiro
                 DespesasAdapter adapter = new DespesasAdapter(rootView.getContext(), despesas);
                 listDespesas.setAdapter(adapter);
             }
@@ -89,6 +102,7 @@ public class DespesasFragment extends Fragment {
         return rootView;
 
     }
+
     /*
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {

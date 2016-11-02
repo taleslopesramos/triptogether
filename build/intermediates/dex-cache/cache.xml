@@ -21,6 +21,24 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="1db3fca697775d5279c836827ba8e0855f6186ed">
+        <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_b90188f202bd802300cdc3b2a104814391dd0928/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.1"
+        sha1="aa5fef711217e5d86ae1a84578d9d8b43d17a6a9">
+        <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_cec52bc7598099e09ec07d03f4c73d7552fe7f84/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -39,30 +57,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="8022edbbc1fcbbae648cd0ad6bd21abf1a0f075e">
-        <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_b90188f202bd802300cdc3b2a104814391dd0928/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.1"
         sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
         <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_9bcd4a3393582856cde0e6a4c0a593d9ba821ab6/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.1"
-        sha1="d6cec79f78e3ff4286290d25743b34e70aca06dd">
-        <dex dex="/home/tales/AndroidStudioProjects/triptogether/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_cec52bc7598099e09ec07d03f4c73d7552fe7f84/classes.dex" />
     </item>
     <item
         is-multidex="true"
