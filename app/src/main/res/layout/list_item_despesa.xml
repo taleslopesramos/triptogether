@@ -49,9 +49,10 @@
         android:layout_height="match_parent"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+
         android:layout_marginRight="15dp"
         android:layout_gravity="right"
-        android:gravity="center"
+        android:gravity="center|left"
         android:textStyle="bold"
         android:textColor="#004A00"
         android:id="@+id/itemdespesa_valor" />

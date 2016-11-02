@@ -32,7 +32,7 @@ public class AddIntegranteActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Novo Integrante");
+        getSupportActionBar().setTitle(R.string.aia_titulo_str);
         usuarioDao = new UsuarioDao(this);
         usuarioViagemDao = new UsuarioViagemDao(this);
 
@@ -64,11 +64,11 @@ public class AddIntegranteActivity extends AppCompatActivity {
                     int id_viagem = sharedPref.getInt(getString(R.string.ID_VIAGEM_file_key),-1);
 
                     usuarioViagemDao.salvarUsuarioViagem(new UsuarioViagem(user.get_id(),id_viagem,true));
-                    Snackbar.make(view, "Usuario Adicionado a viagem!", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, R.string.aia_addsucesso_str, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
                 else{//se o email não existir
-                    Snackbar.make(view, "Ops! Esse Email é inválido", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, R.string.aia_adderror_str, Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             }

@@ -85,28 +85,28 @@ public class LoginActivity extends AppCompatActivity{
                     }
                 }
                 else {
-                    Toast.makeText(v.getContext(), "PREENCHA OS CAMPOS", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.ada_toast2_str, Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        usuarioDao.close();
-        usuarioViagemDao.close();
-    }
 
+    }
     private boolean validaEntradaLogin(View v){
         if(email != "" && email != null && senha != "" && senha != null){
             return true;
 
         } else {
-            Toast.makeText(v.getContext(),"PREENCHA OS CAMPOS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(),R.string.ada_toast2_str, Toast.LENGTH_SHORT).show();
             return false;
         }
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        usuarioDao.close();
+        usuarioViagemDao.close();
     }
 
 }

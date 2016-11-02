@@ -30,7 +30,7 @@ public class DespesasAdapter extends ArrayAdapter<ItemDespesa>{
         if(listViewItem == null)
             listViewItem = LayoutInflater.from(getContext()).inflate(R.layout.list_item_despesa, parent, false);
 
-        ArrayList<Categoria> categorias= new InicializaCategorias().getCategorias();
+        ArrayList<Categoria> categorias= new InicializaCategorias(listViewItem.getContext()).getCategorias();
         ItemDespesa currentDespesa = getItem(position);
         Integer indiceCategoria = currentDespesa.getCategoria();
 

@@ -72,14 +72,15 @@ public class ViagemFragment extends Fragment {
             txtLocalViagem = (TextView) rootView.findViewById(R.id.local_viagem);
             txtLocalViagem.setText(viagemAtual.getLocal());
             sugestaoViagemBtn = (Button) rootView.findViewById(R.id.sugestao_btn);
+            sugestaoViagemBtn.setText(R.string.fragv_sugestao_str);
 
             finalizarViagemBtn = (Button) rootView.findViewById(R.id.finalizar_btn);
+            finalizarViagemBtn.setText(R.string.fragv_finalizar_str);
 
             UsuarioDao usuarioDao = new UsuarioDao(rootView.getContext());
             usuarios = new ArrayList<Usuario>();
             usuarios = usuarioDao.listaUsuariosDeUmaViagem(id_viagem);
             usuarioDao.close();
-
             sugestaoViagemBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,7 +88,7 @@ public class ViagemFragment extends Fragment {
                     ArrayList<String> sugestoes = dividasSolucao.getResultado();
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, sugestoes);
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
-                            .setTitle("Sugestão")
+                            .setTitle(R.string.fragv_sugestao_str)
                             //.setMessage("(teste)"+ sugestoes.get(0))
                             .setAdapter(adapter, null)
                             .setPositiveButton("OK", null);

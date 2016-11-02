@@ -76,17 +76,8 @@ public class UsuarioViagemDao {
         valores.put(DataBaseHelper.UsuarioViagem.ID_VIAGEM,usuarioViagem.getId_viagem());
         valores.put(DataBaseHelper.UsuarioViagem.DATAFIM,usuarioViagem.getData());
         valores.put(DataBaseHelper.UsuarioViagem.ESTA_ATIVA, (usuarioViagem.estaAtiva()) ? 1 : 0);
-        return getDatabase().insert(DataBaseHelper.UsuarioViagem.TABELA,null,valores);
-    }
 
-    public long updateUsuarioViagem(UsuarioViagem usuarioViagem){
-        ContentValues valores = new ContentValues();
-        valores.put(DataBaseHelper.UsuarioViagem.ID_USUARIO,usuarioViagem.getId_usuario());
-        valores.put(DataBaseHelper.UsuarioViagem.ID_VIAGEM,usuarioViagem.getId_viagem());
-        valores.put(DataBaseHelper.UsuarioViagem.DATAFIM,usuarioViagem.getData());
-        valores.put(DataBaseHelper.UsuarioViagem.ESTA_ATIVA, (usuarioViagem.estaAtiva()) ? 1 : 0);
-        return getDatabase().update(DataBaseHelper.UsuarioViagem.TABELA,valores,"ID_Usuario = ? and  ID_Viagem = ?",
-                new String[]{Integer.toString(usuarioViagem.getId_usuario()),Integer.toString(usuarioViagem.getId_viagem())});
+        return getDatabase().insert(DataBaseHelper.UsuarioViagem.TABELA,null,valores);
     }
 
     public boolean removerUsuarioViagem(int id_usuario,int id_viagem){
@@ -109,20 +100,6 @@ public class UsuarioViagemDao {
         return null;
     }
 
-    public UsuarioViagem buscarUsuarioViagemPorId(int id_usuario,int id_viagem){
-        Cursor cursor = getDatabase().query(DataBaseHelper.UsuarioViagem.TABELA,
-                DataBaseHelper.UsuarioViagem.COLUNAS,
-                "ID_Usuario = ? and ID_Viagem = ?", new String[]{Integer.toString(id_usuario),Integer.toString(id_viagem)},null,null,null);
-
-        if(cursor.moveToNext()){
-            UsuarioViagem model = criaUsuarioViagem(cursor);
-                cursor.close();
-                return model;
-        }
-        cursor.close();
-        return null;
-    }
-
 
     public int buscarIdViagemAtiva(int id_usuario){
         UsuarioViagem user = buscarUsuarioViagemAtivaPorId(id_usuario);
@@ -139,20 +116,20 @@ public class UsuarioViagemDao {
         UsuarioViagem user = buscarUsuarioViagemAtivaPorId(id_usuario);
 
         user.setEstaAtiva(bool);
-        updateUsuarioViagem(user);
+        salvarUsuarioViagem(user);
 
         return user.getId_viagem();
     }
 
-    public void updateViagemAtiva(int id_usuario, int id_viagem) {
+    public void updateViagemAtiva(int id_viagem,int id_usuario) {
         UsuarioViagem user = buscarUsuarioViagemAtivaPorId(id_usuario);
 
-        if(user != null) {//se tiver uma viagem ativa, desativa ela
+        if(user != null) {
             user.setEstaAtiva(false);
-            updateUsuarioViagem(user);
+            salvarUsuarioViagem(user);
         }
 
-        user = new UsuarioViagem(id_usuario,id_viagem,true);//ativa a viagem selecionada
-        updateUsuarioViagem(user);
+        user = new UsuarioViagem(id_usuario,id_viagem,true);
+        salvarUsuarioViagem(user);
     }
 }

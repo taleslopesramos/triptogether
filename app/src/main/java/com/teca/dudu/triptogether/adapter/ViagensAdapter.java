@@ -42,6 +42,11 @@ public class ViagensAdapter extends ArrayAdapter<Viagem> {
 
         txtLocalViagem.setText(currentViagem.getLocal());
 
+        // TO DO
+        // quanto o usuário pagou ou deve
+        //TO DO
+        //Imagem do usuario
+
 
         return listViewItem;
 

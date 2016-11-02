@@ -5,32 +5,32 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_nav_home"
-            android:title="Home" />
-        <item
-            android:id="@+id/nav_lista_viagens"
-            android:icon="@drawable/ic_nav_viagens"
-            android:title="Viagens" />
+            android:title="@string/nav_home_str" />
         <item
             android:id="@+id/nav_add_integrante"
             android:icon="@drawable/ic_nav_add_user"
-            android:title="Adicionar Integrante" />
+            android:title="@string/nav_adduser_str" />
+        <item
+            android:id="@+id/nav_lista_viagens"
+            android:icon="@drawable/ic_nav_viagens"
+            android:title="@string/nav_viagens_str" />
         <item
             android:id="@+id/nav_add_despesa"
             android:icon="@drawable/ic_nav_add_despesa"
-            android:title="Adicionar Despesa" />
+            android:title="@string/nav_adddespesa_str" />
 
     </group>
 
-    <item android:title="Perfil">
+    <item android:title="@string/nav_perfil_str">
         <menu>
             <item
                 android:id="@+id/nav_perfil"
                 android:icon="@drawable/ic_nav_settings"
-                android:title="Configurações" />
+                android:title="@string/nav_config_str" />
             <item
                 android:id="@+id/nav_exit"
                 android:icon="@drawable/ic_nav_quit"
-                android:title="Sair" />
+                android:title="@string/nav_sair_str" />
         </menu>
     </item>
 

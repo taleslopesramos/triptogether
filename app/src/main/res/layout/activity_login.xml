@@ -25,6 +25,7 @@
             android:layout_height="200dp"
             android:id="@+id/imageView"
             android:src="@drawable/paper_plane_orange"
+
             android:layout_gravity="center" />
 
         <android.support.design.widget.TextInputLayout
@@ -39,10 +40,8 @@
                 android:textColorHint="#FFFFFF"
                 android:inputType="textNoSuggestions"
                 android:maxLines="1"
-                android:textColor="#FFFFFF"
-                />
-
-        </android.support.design.widget.TextInputLayout>
+                android:textColor="#FFFFFF"/>
+</android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -60,8 +59,10 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:textColor="#FFFFFF" />
-
-        </android.support.design.widget.TextInputLayout>
+                android:inputType="textNoSuggestions"
+                android:maxLines="1"
+                style="@style/Widget.AppCompat.AutoCompleteTextView" />
+ </android.support.design.widget.TextInputLayout>
 
         <Button
             android:layout_width="match_parent"

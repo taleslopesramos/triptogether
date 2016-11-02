@@ -32,13 +32,13 @@ import com.teca.dudu.triptogether.util.InicializaCategorias;
 import java.util.ArrayList;
 
 public class AddDespesaActivity extends AppCompatActivity {
+    ItemDespesaDao novaDespesa;
+
     TextView descTV, valorTV;
     Button addDespesaBtn, quemUsouBtn, categoriasBtn, moedasBtn;
     ListView listViewQuemUsou;
     String moeda;
     ArrayList<Usuario> usuarios;
-
-    ItemDespesaDao novaDespesa;
     UsuarioDao usuarioDao;
     UsuarioViagemDao usuarioViagemDao;
     ArrayList<UsuarioPagante> usuariosPagantes;
@@ -55,7 +55,7 @@ public class AddDespesaActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Nova Despesa");
+        getSupportActionBar().setTitle(R.string.ada_titulo_str);
 
         usuariosPagantes = new ArrayList<UsuarioPagante>();
 
@@ -103,7 +103,7 @@ public class AddDespesaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder moedasDialog = new AlertDialog.Builder(v.getContext())
-                        .setTitle("Moedas");
+                        .setTitle(R.string.ada_moeda_str);
                 moedasDialog.setAdapter(new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, moedas), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -119,7 +119,7 @@ public class AddDespesaActivity extends AppCompatActivity {
 
 
 
-        final ArrayList<Categoria> categorias = new InicializaCategorias().getCategorias();
+        final ArrayList<Categoria> categorias = new InicializaCategorias(getApplication()).getCategorias();
         categoriasBtn.setText(categorias.get(0).getNomeCategoria());
 
         categoriasBtn.setCompoundDrawablesWithIntrinsicBounds(categorias.get(0).getIconeCategoria(), 0, 0, 0);
@@ -130,7 +130,7 @@ public class AddDespesaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder categoriasDialog = new AlertDialog.Builder(v.getContext())
-                        .setTitle("Categorias");
+                        .setTitle(R.string.categorias_nome_str);
                 categoriasDialog.setAdapter(adapter, new DialogInterface.OnClickListener() {
 
                     @Override
@@ -166,15 +166,14 @@ public class AddDespesaActivity extends AppCompatActivity {
 
                         Intent intentmain = new Intent(AddDespesaActivity.this, MainActivity.class);
                         startActivity(intentmain);
-                        finish();
                     } else {
-                        Toast.makeText(v.getContext(), "A soma dos campos dos integrantes deve ser igual ao valor da despesa",
+                        Toast.makeText(v.getContext(), R.string.ada_toast1_str,
                                 Toast.LENGTH_SHORT).show();
                     }
 
 
                 } else{
-                    Toast.makeText(v.getContext(), "Preencha os campos corretamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.ada_toast2_str, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -221,12 +220,9 @@ public class AddDespesaActivity extends AppCompatActivity {
         quemUsouBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createDialog("quem usou", v);
+                createDialog(getString(R.string.ada_quemusou_str), v);
             }
         });
-
-
-
     }
 
 

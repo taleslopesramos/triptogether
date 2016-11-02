@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name">TripTogether</string>
+    <string name="action_settings">Settings</string>
+    <!--LOGIN-->
+    <string name="prompt_nome">Name</string>
+    <string name="prompt_nick">Nickname</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_local">Local</string>
+    <!--NAVIGATION DRAWER-->
+    <string name="nav_home_str">Home</string>
+    <string name="nav_viagens_str">Trips</string>
+    <string name="nav_adduser_str">New member</string>
+    <string name="nav_adddespesa_str">New expense</string>
+    <string name="nav_perfil_str">Profile</string>
+    <string name="nav_config_str">Settings</string>
+    <string name="nav_sair_str">Log out</string>
+    <!--TABS-->
+    <string name="tab_integrantes_str">MEMBERS</string>
+    <string name="tab_viagem_str">TRIP</string>
+    <string name="tab_atividade_str">ACTIVITY</string>
+
+    <!-- ADD INTEGRANTE ACTIVITY -->
+    <string name="aia_email_str">user e-mail</string>
+    <string name="aia_finalizar_str">add users</string>
+    <string name="aia_addsucesso_str">User successfully added!</string>
+    <string name="aia_adderror_str">inexistent user</string>
+    <string name="aia_titulo_str">New Member</string>
+
+    <!-- VIAGENS ACTIVITY -->
+    <string name="va_titulo_str">Trips</string>
+    <string name="va_nova_str">New Trip</string>
+    <string name="va_nomev_str">Trip Name</string>
+    <string name="va_localv_str">Travel Location</string>
+    <string name="va_apagar_str">Delete</string>
+    <string name="va_vativa_str">Activate Trip</string>
+    <string name="va_selop_str">Select an option</string>
+
+    <!-- ADD DESPESA ACTIVITY -->
+    <string name="ada_titulo_str">New Expense</string>
+    <string name="ada_descricao_str">Description</string>
+    <string name="ada_moeda_str">Coin</string>
+    <string name="ada_valor_str">price</string>
+    <string name="ada_quemusou_str">Who Used</string>
+    <string name="ada_adicionar_str">Add Expense</string>
+    <string name="ada_toast1_str">The sum of the fields of the members must be equal to the amount paid</string>
+    <string name="ada_toast2_str">Fill in the fields correctly</string>
+    <!-- PERFIL ACTIVITY -->
+    <string name="pa_digites_str">Preencha os campos corretamente</string>
+    <!-- VIAGEM FRAGMENT -->
+    <string name="fragv_finalizar_str">End Trip</string>
+    <string name="fragv_sugestao_str">Split</string>
+    <string name="fragv_paga_str">pays</string>
+    <string name="fragv_para_str">to</string>
+
+
+
+    <!-- CATEGORIAS -->
+    <string name="categorias_nome_str">Categories</string>
+    <string name="categorias_secao1_str">Food and Drink</string>
+    <string name="categorias_secao2_str">Entertainment</string>
+    <string name="categorias_secao3_str">Transportation</string>
+    <string name="categorias_0_str">Water</string>
+    <string name="categorias_1_str">Lunch</string>
+    <string name="categorias_2_str">Drinks</string>
+    <string name="categorias_3_str">Dinner Out</string>
+    <string name="categorias_4_str">Games</string>
+    <string name="categorias_5_str">Books</string>
+    <string name="categorias_6_str">Sport</string>
+    <string name="categorias_7_str">Tourism</string>
+    <string name="categorias_8_str">Tickets</string>
+    <string name="categorias_9_str">Air Plane</string>
+    <string name="categorias_10_str">Bike</string>
+    <string name="categorias_11_str">Gas</string>
+    <string name="categorias_12_str">Train</string>
+    <string name="categorias_13_str">Bus</string>
+    <!-- BOTOES -->
+    <string name="btn_confirmar_str">Confirm</string>
+
+
+
+
+    <string name="ID_file_key">com.teca.triptogether.idlogin</string>
+    <string name="addPT">adicionar</string>
+    <string name="logarPT">LOGAR</string>
+    <string name="textRegPT">Not Registereds?</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_cria_viagem">CriaViagemActivity</string>
+    <string name="title_activity_add_integrante">AddIntegranteActivity</string>
+    <string name="prompt_integrante">Email do Integrante</string>
+    <string name="ID_VIAGEM_file_key">com.teca.triptogether.idviagem</string>
+    <string name="valorPT">valor</string>
+</resources>

@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity
 
         Usuario user = usuarioDao.buscarUsuarioPorId(id_usuario);
 
-        usuarioDao.close();
         nomePerfil.setText(user.getNome());
         emailPerfil.setText(user.getEmail());
         if(user.getImgPerfil() != null) {
@@ -208,11 +207,11 @@ public class MainActivity extends AppCompatActivity
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "INTEGRANTES";
+                    return getString(R.string.tab_integrantes_str);
                 case 1:
-                    return "VIAGEM";
+                    return getString(R.string.tab_viagem_str);
                 case 2:
-                    return "ATIVIDADE";
+                    return getString(R.string.tab_atividade_str);
             }
             return null;
         }

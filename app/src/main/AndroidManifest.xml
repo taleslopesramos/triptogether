@@ -38,8 +38,8 @@
             android:name=".activity.AddIntegranteActivity"
             android:label="@string/title_activity_add_integrante"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.PerfilActivity" />
-        <activity android:name=".activity.DespesaActivity"></activity>
+        <activity android:name=".activity.PerfilActivity"></activity>
+        <activity android:name=".activity.DespesaActivity" />
     </application>
 
 </manifest>

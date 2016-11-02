@@ -58,7 +58,12 @@ public class DespesaDao {
         cursor.close();
         return despesas;
     }
-
+    public boolean removerDespesasPorItemDespesa(Integer id_itemdespesa){
+        int delete = getDatabase().delete(DataBaseHelper.Despesa.TABELA,
+                DataBaseHelper.Despesa.ID_ITEMDESPESA + " = " + id_itemdespesa.toString(),
+                null);
+        return delete > 0;
+    }
     public float saldoDoUsuario(int id_usuario,int id_viagem){
         float total = 0;
         Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,DataBaseHelper.Despesa.COLUNAS,
@@ -94,7 +99,7 @@ public class DespesaDao {
         Cursor cursor = getDatabase().query(DataBaseHelper.Despesa.TABELA,
                 DataBaseHelper.Despesa.COLUNAS,"? = ? AND ? = ?",
                 new String[]{DataBaseHelper.Despesa.ID_ITEMDESPESA,Integer.toString(id_item),
-                             DataBaseHelper.Despesa.ID_VIAGEM,Integer.toString(id_viagem)},null,null,null);
+                        DataBaseHelper.Despesa.ID_VIAGEM,Integer.toString(id_viagem)},null,null,null);
         ArrayList<Despesa> despesas = new ArrayList<Despesa>();
 
         while (cursor.moveToNext()){
@@ -121,7 +126,7 @@ public class DespesaDao {
         return getDatabase().insert(DataBaseHelper.Despesa.TABELA,null,valores);
     }
 
-    public boolean removerDespesa(int idDespesa,int idViagem,int idUsuario){
+    public boolean removerLancamento(int idDespesa,int idViagem,int idUsuario){
         return getDatabase().delete(DataBaseHelper.Despesa.TABELA,"_id = ?",
                 new String[]{Integer.toString(idViagem),Integer.toString(idDespesa),Integer.toString(idUsuario)}) > 0;
     }

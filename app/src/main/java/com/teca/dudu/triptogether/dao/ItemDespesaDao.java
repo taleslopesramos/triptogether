@@ -32,6 +32,13 @@ public class ItemDespesaDao {
         dataBaseHelper.close();
         database = null;
     }
+    public boolean deletarItemDespesa(Integer id_itemDespesa){
+
+        int delete = getDatabase().delete(DataBaseHelper.ItemDespesa.TABELA,
+                DataBaseHelper.ItemDespesa._ID + " = " + id_itemDespesa.toString(),
+                null);
+        return delete > 0;
+    }
 
     private ItemDespesa criaItemDespesa(Cursor cursor){
         ItemDespesa model = new ItemDespesa(
@@ -47,7 +54,7 @@ public class ItemDespesaDao {
         return model;
     }
 
-    public ArrayList<ItemDespesa> listaItemDespesa(){
+    public ArrayList<ItemDespesa> listaDespesa(){
         Cursor cursor = getDatabase().query(DataBaseHelper.ItemDespesa.TABELA,
                 DataBaseHelper.ItemDespesa.COLUNAS,null,null,null,null,null);
         ArrayList<ItemDespesa> itemDespesas = new ArrayList<ItemDespesa>();
@@ -104,7 +111,7 @@ public class ItemDespesaDao {
             cursor.close();
             return model;
         }
-        cursor.close();
+
         return null;
     }
 }

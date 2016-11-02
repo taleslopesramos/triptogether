@@ -2,6 +2,7 @@ package com.teca.dudu.triptogether.util;
 
 import android.content.Context;
 
+import com.teca.dudu.triptogether.R;
 import com.teca.dudu.triptogether.dao.DespesaDao;
 import com.teca.dudu.triptogether.model.Usuario;
 
@@ -17,8 +18,10 @@ public class DividasSolucao {
     private float saldoPagantes[],saldoDevedores[];
     private DespesaDao despesaDao;
     private int id_viagem;
+    private Context context;
     public DividasSolucao(Context context, ArrayList<Usuario> users,int id_viagem) {
         this.users = users;
+        this.context = context;
         pagantes = new ArrayList<Usuario>();
         devedores = new ArrayList<Usuario>();
         despesaDao = new DespesaDao(context);
@@ -76,16 +79,16 @@ public class DividasSolucao {
 
 
                 if(saldoPagantes[pagantes.indexOf(pagante)] >= 0){ //se o devedor tiver pago tudo o que devia cria a sugestão
-                    sugestoes.add( devedor.getNome() + " paga " +
-                            -1*saldoDevedores[devedores.indexOf(devedor)] + " para " + //Cria a string de sugestao
+                    sugestoes.add( devedor.getNome() + context.getString(R.string.fragv_paga_str) +
+                            -1*saldoDevedores[devedores.indexOf(devedor)] +  context.getString(R.string.fragv_para_str) + //Cria a string de sugestao
                             pagante.getNome());
                     indexReajuste = 1; //faz o iterador de devedores passar para o proximo devedor
                 }
                 else if(saldoPagantes[pagantes.indexOf(pagante)] < 0){ //se o devedor tiver pago tudo para o pagante e ainda n tiver quitado as dividas ele paga o proximo pagante;
                     indexReajuste = -1;
                     saldoDevedores[devedores.indexOf(devedor)] -= saldoPagantes[pagantes.indexOf(pagante)];
-                    sugestoes.add( devedor.getNome() + " paga " +
-                            -1*saldoDevedores[devedores.indexOf(devedor)] + " para " + //Cria a string de sugestao
+                    sugestoes.add( devedor.getNome() + context.getString(R.string.fragv_paga_str) +
+                            -1*saldoDevedores[devedores.indexOf(devedor)] + context.getString(R.string.fragv_para_str) + //Cria a string de sugestao
                             pagante.getNome());
                 }
             }
